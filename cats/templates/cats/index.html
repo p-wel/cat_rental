@@ -6,7 +6,12 @@
 </head>
 <body>
 <h1>Welcome!</h1>
-<p>Hope you'll find a cat of your dreams!</p>
-<div>Tutaj będzie przycisk: Show list of all cats</div>
+<p>Find a cat of your dreams!</p>
+<ul>
+    Choose the species:
+    {% for cat in cats_list %}
+        <li> {{ cat.species }}</li>
+    {% endfor %}
+</ul>
 </body>
 </html>

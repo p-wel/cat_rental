@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -18,4 +19,22 @@ class Cat(models.Model):
     modification_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"ID: {self.id}. {self.breed} ({self.species})"
+        return f"{self.id}. {self.breed}"
+
+    def rent(self):
+        self.available = False
+
+
+class Customer(models.Model):
+    name = models.OneToOneField(User, on_delete=models.CASCADE)
+    email = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class Rental(Customer):
+    rental_customer = Customer.name
+
+    def __str__(self):
+        return f"Rental order: {self.id} - Customer: {self.rental_customer}"

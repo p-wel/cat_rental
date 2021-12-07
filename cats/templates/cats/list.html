@@ -6,12 +6,21 @@
 </head>
 <body>
 <h1>List of cats</h1>
-<p>Here you can see every cat, that we offer</p>
-<div>Tutaj będzie lista kotów ze zdjęciami. Wyszarzone niedostępne koty. Przy każdym zdjęciu przycisk RENT NOW.
-Przy niedostępnych: data zwrotu przez poprzedniego właściciela</div>
+
 <ul>
+    Available cats:
     {% for cat in cats_list %}
-        <li> {{  cat }}</li>
+        {% if cat.available %}
+            <li> {{ cat }} --- Rent now</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+<ul>
+    Already rented cats:
+    {% for cat in cats_list %}
+        {% if not cat.available %}
+            <li> {{ cat }} --- Not available till:</li>
+        {% endif %}
     {% endfor %}
 </ul>
 </body>
