@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cats list</title>
+</head>
+<body>
+<h1>List of cats</h1>
+<p>Here you can see every cat, that we offer</p>
+<div>Tutaj będzie lista kotów ze zdjęciami. Wyszarzone niedostępne koty. Przy każdym zdjęciu przycisk RENT NOW.
+Przy niedostępnych: data zwrotu przez poprzedniego właściciela</div>
+<ul>
+    {% for cat in cats_list %}
+        <li> {{  cat }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
