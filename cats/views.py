@@ -3,7 +3,9 @@ from cats.models import Cat
 
 
 def index(request):
-    return render(request, 'cats/index.html')
+    cats = Cat.objects.all()
+    context = {'cats_list': cats}
+    return render(request, 'cats/index.html', context)
 
 
 def cats_list(request):

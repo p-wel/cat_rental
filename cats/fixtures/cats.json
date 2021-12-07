@@ -1,0 +1,72 @@
+[
+{
+  "model": "cats.cat",
+  "pk": 1,
+  "fields": {
+    "species": "House Cat",
+    "breed": "American Curl",
+    "description": "",
+    "available": true,
+    "last_rental_date": null,
+    "last_return_date": null,
+    "creation_date": "2021-12-07T17:42:26.968Z",
+    "modification_date": "2021-12-07T17:42:28.450Z"
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 2,
+  "fields": {
+    "species": "House Cat",
+    "breed": "Persian Cat",
+    "description": "",
+    "available": true,
+    "last_rental_date": null,
+    "last_return_date": null,
+    "creation_date": "2021-12-07T17:42:40.699Z",
+    "modification_date": "2021-12-07T17:42:43.175Z"
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 3,
+  "fields": {
+    "species": "Farm cat",
+    "breed": "Sheep's Cat",
+    "description": "",
+    "available": true,
+    "last_rental_date": null,
+    "last_return_date": null,
+    "creation_date": "2021-12-07T17:42:53.446Z",
+    "modification_date": "2021-12-07T17:42:53.446Z"
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 4,
+  "fields": {
+    "species": "Feral cat",
+    "breed": "Bengal Tiger",
+    "description": "",
+    "available": false,
+    "last_rental_date": "2021-11-07T06:00:00Z",
+    "last_return_date": null,
+    "creation_date": "2021-12-07T17:43:00.888Z",
+    "modification_date": "2021-12-07T17:47:04.348Z"
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 5,
+  "fields": {
+    "species": "House cat",
+    "breed": "Siberian Cat",
+    "description": "",
+    "available": false,
+    "last_rental_date": "2021-10-05T17:46:51Z",
+    "last_return_date": null,
+    "creation_date": "2021-12-07T17:43:11.461Z",
+    "modification_date": "2021-12-07T17:46:52.939Z"
+  }
+}
+]
