@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
+
 <head>
-    <meta charset="UTF-8">
-    <title>Cat rental</title>
+    <title>Cat Rental service</title>
 </head>
-<body>
-<h1>Welcome!</h1>
-<p>Find a cat of your dreams!</p>
-<ul>
-    Choose the species:
-    {% for cat in cats_list %}
-        <li> {{ cat.species }}</li>
-    {% endfor %}
-</ul>
-</body>
-</html>
+    <h1>Welcome!</h1>
+    <p>Find a cat of your dreams!</p>
+    <ul>
+        Choose the species:
+        {% for cat in cats_list %}
+            <li>
+            <a href="{% url 'cats:details' cat.id %}">{{ cat.species }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

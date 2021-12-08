@@ -14,11 +14,14 @@ def cats_list(request):
     return render(request, 'cats/list.html', context)
 
 
-def cat_details(request):
-    context = {}
+def cat_details(request, cat_id):
+    cat = Cat.objects.get(pk=cat_id)
+    context = {"cat": cat}
     return render(request, 'cats/details.html', context)
 
 
 def cat_rented(request):
-    context = {}
-    return render(request, 'cats/rented.html', context)
+    return render(request, 'cats/rented.html')
+
+def cats_about(request):
+    return render(request, 'cats/about.html')

@@ -1,13 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
+
 <head>
-    <meta charset="UTF-8">
     <title>Cat details</title>
 </head>
-<body>
-<h1>Tutaj będzie id i nazwa danego kota</h1>
-<p>Details of the cat:</p>
-<div>Tutaj będzie opis kota</div>
-<div>Tutaj będzie przycisk: Rent a cat!</div>
-</body>
-</html>
+
+<h1>Cat's details</h1>
+<u1>
+    <a hred="/cats/{{ cat.id }}">{{ cat }}</a>
+    {{ cat.description }}
+</u1>
+<div>
+    Tutaj będzie przycisk: Rent a cat!
+</div>
+
+{% endblock %}
