@@ -1,15 +1,13 @@
 from django.urls import path
-from cats.views import *
+from cats.views import cat_details, cats_about, cats_list, index
 
+app_name = "cats"
 urlpatterns = [
-    path('cats/1/rented/', cat_rented),
-    # path('cats/<int:cats_id>/rented/', cat_rented),
-    path('cats/1/', cat_details),
-    # path('cats/<int:pk>/', cat_details),
-
-    path('cats/', cats_list),
-    path('', index),
-
+    # path('cats/<int:cats_id>/rented/', cat_rented, name="rented"),
+    path('cats/<int:cat_id>/', cat_details, name="details"),
+    path('cats/about', cats_about, name="about"),
+    path('cats/', cats_list, name="list"),
+    path('', index, name="index"),
 ]
 
 
