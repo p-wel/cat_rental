@@ -1,0 +1,26 @@
+[
+{
+  "model": "cats.species",
+  "pk": 1,
+  "fields": {
+    "name": "House Cat",
+    "description": "desc of house cats"
+  }
+},
+{
+  "model": "cats.species",
+  "pk": 2,
+  "fields": {
+    "name": "Farm Cat",
+    "description": ""
+  }
+},
+{
+  "model": "cats.species",
+  "pk": 3,
+  "fields": {
+    "name": "Feral Cat",
+    "description": ""
+  }
+}
+]

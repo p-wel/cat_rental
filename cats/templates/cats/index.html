@@ -1,18 +1,9 @@
-{% extends 'base.html' %}
-{% block content %}
-
 <head>
     <title>Cat Rental service</title>
 </head>
-    <h1>Welcome!</h1>
-    <p>Find a cat of your dreams!</p>
-    <ul>
-        Choose the species:
-        {% for cat in cats_list %}
-            <li>
-            <a href="{% url 'cats:details' cat.id %}">{{ cat.species }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Welcome</h1>
+    <p>Rent a cat of your dreams!</p>
+            <a href="{% url 'cats:species' %}">Species list</a>
 {% endblock %}

@@ -1,0 +1,24 @@
+<head>
+    <title>Cats list</title>
+</head>
+{% extends 'base.html' %}
+{% block content %}
+    <p1>List of {{ species }}s</p1>
+    <ul>
+        Available:
+        {% for cat in cats_list %}
+            {% if cat.species == species %}
+                {% if cat.available %}
+                    <li>
+                        <a href="{% url 'cats:details' cat.id %}">
+                            ({{ cat.breed }}) - {{ cat.name }}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <ul>
+        Already rented:
+    </ul>
+    <a href="{% url 'cats:species' %}">Back</a>
+{% endblock %}

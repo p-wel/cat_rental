@@ -6,26 +6,24 @@
 </head>
 <body>
 <header>
-    Tu będzie header
+    <ul>* CAT RENTAL *</ul>
 </header>
 <nav>
     <ul>
         <li>
             <a href="{% url 'cats:index' %}">Homepage</a>
         </li>
+        <li>
+            <a href="{% url 'cats:species' %}">Species list</a>
+        </li>
     </ul>
+    -----
 </nav>
 {% block content %}
 {% endblock %}
 <footer>
-    Tu będzie footer
+    <div>-----</div>
+    <a href="{% url 'cats:about' %}">About the website</a>
 </footer>
-<nav>
-    <ul>
-        <li>
-            <a href="{% url 'cats:about' %}">About the website</a>
-        </li>
-    </ul>
-</nav>
 </body>
 </html>
