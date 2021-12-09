@@ -1,0 +1,14 @@
+<head>
+    <title>Species list</title>
+</head>
+{% extends 'base.html' %}
+{% block content %}
+    Choose the species:
+    {% for species in species_list %}
+        <li>
+            <a href="{% url 'cats:list' species.id %}">
+                {{ species.name }}</a>
+        </li>
+    {% endfor %}
+    <a href="{% url 'cats:index' %}">Back</a>
+{% endblock %}

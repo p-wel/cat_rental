@@ -3,70 +3,60 @@
   "model": "cats.cat",
   "pk": 1,
   "fields": {
-    "species": "House Cat",
+    "name": "Kitteeeeen",
     "breed": "American Curl",
-    "description": "",
+    "description": "desc wqeqweqwe",
     "available": true,
     "last_rental_date": null,
     "last_return_date": null,
-    "creation_date": "2021-12-07T17:42:26.968Z",
-    "modification_date": "2021-12-07T17:42:28.450Z"
+    "creation_date": "2021-12-09T13:15:37.091Z",
+    "modification_date": "2021-12-09T13:15:38.073Z",
+    "species": 1
   }
 },
 {
   "model": "cats.cat",
   "pk": 2,
   "fields": {
-    "species": "House Cat",
-    "breed": "Persian Cat",
+    "name": "Kitty1",
+    "breed": "American Curl",
     "description": "",
     "available": true,
     "last_rental_date": null,
     "last_return_date": null,
-    "creation_date": "2021-12-07T17:42:40.699Z",
-    "modification_date": "2021-12-07T17:42:43.175Z"
+    "creation_date": "2021-12-09T14:50:11.424Z",
+    "modification_date": "2021-12-09T15:57:04.416Z",
+    "species": 1
   }
 },
 {
   "model": "cats.cat",
   "pk": 3,
   "fields": {
-    "species": "Farm cat",
+    "name": "Kitty2",
     "breed": "Sheep's Cat",
     "description": "",
     "available": true,
     "last_rental_date": null,
     "last_return_date": null,
-    "creation_date": "2021-12-07T17:42:53.446Z",
-    "modification_date": "2021-12-07T17:42:53.446Z"
+    "creation_date": "2021-12-09T14:50:27.609Z",
+    "modification_date": "2021-12-09T14:50:27.609Z",
+    "species": 2
   }
 },
 {
   "model": "cats.cat",
   "pk": 4,
   "fields": {
-    "species": "Feral cat",
+    "name": "Kitty3",
     "breed": "Bengal Tiger",
     "description": "",
-    "available": false,
-    "last_rental_date": "2021-11-07T06:00:00Z",
+    "available": true,
+    "last_rental_date": null,
     "last_return_date": null,
-    "creation_date": "2021-12-07T17:43:00.888Z",
-    "modification_date": "2021-12-07T17:47:04.348Z"
-  }
-},
-{
-  "model": "cats.cat",
-  "pk": 5,
-  "fields": {
-    "species": "House cat",
-    "breed": "Siberian Cat",
-    "description": "",
-    "available": false,
-    "last_rental_date": "2021-10-05T17:46:51Z",
-    "last_return_date": null,
-    "creation_date": "2021-12-07T17:43:11.461Z",
-    "modification_date": "2021-12-07T17:46:52.939Z"
+    "creation_date": "2021-12-09T14:50:52.204Z",
+    "modification_date": "2021-12-09T14:50:52.204Z",
+    "species": 3
   }
 }
 ]

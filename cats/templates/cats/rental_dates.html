@@ -1,0 +1,19 @@
+<head>
+    <title>Rental dates</title>
+</head>
+{% extends 'base.html' %}
+{% block content %}
+    <p1>
+        {{ cat.name }}
+    </p1>
+    <ul>
+        Wybierz daty
+    </ul>
+    <ul>
+    Po wybraniu dat przenosi do
+    </ul>
+    <ul>
+            <a href="{% url 'cats:rented' cat.id %}">
+            rented</a>
+    </ul>
+{% endblock %}

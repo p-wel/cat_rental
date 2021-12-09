@@ -1,17 +1,17 @@
-{% extends 'base.html' %}
-{% block content %}
-
 <head>
     <title>Cat details</title>
 </head>
+{% extends 'base.html' %}
+{% block content %}
 
-<h1>Cat's details</h1>
-<u1>
-    <a hred="/cats/{{ cat.id }}">{{ cat }}</a>
-    {{ cat.description }}
-</u1>
-<div>
-    Tutaj będzie przycisk: Rent a cat!
-</div>
-
+    <ul>
+        {{ cat.name }}'s details
+    </ul>
+    <p1>
+        Bio: {{ cat.description }}
+    </p1>
+    <ul>
+        <a href="{% url 'cats:rental_dates' cat.id %}">
+            Rent a cat!</a>
+    </ul>
 {% endblock %}
