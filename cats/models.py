@@ -1,27 +1,27 @@
-from django.contrib.auth.models import User
 from django.db import models
+from django.utils.timezone import now, timedelta
 
 
-class Species(models.Model):
+class CheckAddDateMixin:
+    def added_earlier_than_n_days(self, n=1):
+        """Chceck if cat was added earlier than now() - days"""
+        delta = timedelta(days=n)
+        return now() - self.created > delta
+
+
+class TimeStamped(models.Model, CheckAddDateMixin):
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+class Cat(TimeStamped):
     name = models.CharField(max_length=50)
-    description = models.TextField(default=None, blank=True)
-    """
-    Species:
-    - House Cat
-    - Farm Cat
-    - Feral Cat
-    """
-
-    def __str__(self):
-        return f"{self.name}"
-
-
-class Cat(models.Model):
-    name = models.CharField(max_length=50)
-    breed = models.CharField(max_length=50)
+    breed = models.ForeignKey('cats.Breed', on_delete=models.CASCADE)
 
     """
-    Breeds:
+    <Species: Breeds>
     - House cat: American Curl, Sphinx, Ragamuffin, Siberian Cat, Persian Cat
     - Farm cat: Sheep's Cat, Barn Cat
     - Feral cat: Bengal Tiger, Lion, Cheetah, Jaguar, Leopard
@@ -33,8 +33,7 @@ class Cat(models.Model):
     last_return_date = models.DateTimeField(default=None, blank=True, null=True)
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(auto_now=True)
-
-    species = models.ForeignKey("cats.Species", on_delete=models.CASCADE)
+    user = models.ManyToManyField("auth.User", blank=True)
 
     def __str__(self):
         return f"{self.id}. {self.breed}"
@@ -43,16 +42,18 @@ class Cat(models.Model):
         self.available = False
 
 
-class Customer(models.Model):
-    name = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.CharField(max_length=100)
+class Breed(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField(default=None, blank=True)
+    species = models.ForeignKey('cats.Species', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
-class Rental(Customer):
-    rental_customer = Customer.name
+class Species(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField(default=None, blank=True)
 
     def __str__(self):
-        return f"Rental order: {self.id} - Customer: {self.rental_customer}"
+        return f"{self.name}"

@@ -1,19 +1,22 @@
-<head>
-    <title>Rental dates</title>
-</head>
-{% extends 'base.html' %}
+{#<head>#}
+{#    <title>Rental dates</title>#}
+{#</head>#}
+{#{% extends 'main/base.html' %}#}
+{#{% block content %}#}
+
+{#{% endblock %}#}
+
+
+<title>Cat details</title>
+{% extends 'main/base.html' %}
 {% block content %}
-    <p1>
-        {{ cat.name }}
-    </p1>
+    <h1>"{{ cat.name }}" details</h1>
+    <div>Cat name: {{ cat.name }}</div>
+    <div>Cat description: {{ cat.description }}</div>
     <ul>
-        Wybierz daty
+        Choose dates:
     </ul>
     <ul>
-    Po wybraniu dat przenosi do
-    </ul>
-    <ul>
-            <a href="{% url 'cats:rented' cat.id %}">
-            rented</a>
+        Po wybraniu dat przenosi do <a href="{% url 'cats:rented' cat.id %}">rented</a>
     </ul>
 {% endblock %}

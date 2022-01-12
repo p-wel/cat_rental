@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+{% block title %}Cats list{% endblock %}
+{% block content %}
+    <h1>Cats</h1>
+
+    <table class="table table-condensed">
+        <thead>
+        <td>Name</td>
+        <td>Breed</td>
+        <td>Status</td>
+        </thead>
+
+        {% for cat in cats_list %}
+            <tr>
+                <td><a href="{% url 'cats:details' cat.id %}">{{ cat.name }}</a></td>
+                <td>{{ cat.breed }}</td>
+                <td>{% if cat.available == True %}Available{% else %}Rented{% endif %}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
