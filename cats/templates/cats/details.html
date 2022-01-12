@@ -1,17 +1,16 @@
-<head>
-    <title>Cat details</title>
-</head>
-{% extends 'base.html' %}
+<title>Cat details</title>
+{% extends 'main/base.html' %}
 {% block content %}
-
-    <ul>
-        {{ cat.name }}'s details
-    </ul>
-    <p1>
-        Bio: {{ cat.description }}
-    </p1>
-    <ul>
-        <a href="{% url 'cats:rental_dates' cat.id %}">
-            Rent a cat!</a>
-    </ul>
+    <h1>"{{ cat.name }}" details</h1>
+    <div>
+        {% if cat.available %}
+            <div class="alert alert-success" role="alert">Available now!</div>
+        {% else %}
+            <div class="alert alert-danger" role="alert">Rented by now</div>
+        {% endif %}
+    </div>
+    <div>Cat name: {{ cat.name }}</div>
+    <div>Cat description: {{ cat.description }}</div>
+    <div><a href="{% url 'cats:rental_dates' cat.id %}">
+        Rent a cat!</a></div>
 {% endblock %}

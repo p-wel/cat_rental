@@ -1,14 +1,11 @@
 <head>
     <title>Species list</title>
 </head>
-{% extends 'base.html' %}
+{% extends 'main/base.html' %}
 {% block content %}
+    <h1>Species</h1>
     Choose the species:
-    {% for species in species_list %}
-        <li>
-            <a href="{% url 'cats:list' species.id %}">
-                {{ species.name }}</a>
-        </li>
-    {% endfor %}
-    <a href="{% url 'cats:index' %}">Back</a>
+        {% for species in species_list %}
+            <li><a href="{% url 'cats:list' species.id %}">{{ species.name }}</a></li>
+        {% endfor %}
 {% endblock %}

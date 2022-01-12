@@ -1,9 +1,10 @@
 <head>
     <title>Cat Rental service</title>
 </head>
-{% extends 'base.html' %}
+{% extends 'main/base.html' %}
 {% block content %}
-    <h1>Welcome</h1>
-    <p>Rent a cat of your dreams!</p>
-            <a href="{% url 'cats:species' %}">Species list</a>
+    <h1>Homepage</h1>
+    <h3>Rent a cat of your dreams!</h3>
+    <div><a href="{% url 'cats:species' %}">Species</a> - search by specific breed</div>
+    <div><a href="">Explore all cats</a> - search for any cat</div>
 {% endblock %}

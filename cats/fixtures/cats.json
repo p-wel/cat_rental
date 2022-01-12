@@ -3,60 +3,36 @@
   "model": "cats.cat",
   "pk": 1,
   "fields": {
-    "name": "Kitteeeeen",
-    "breed": "American Curl",
-    "description": "desc wqeqweqwe",
+    "created": "2022-01-12T13:18:54.491Z",
+    "modified": "2022-01-12T13:18:54.491Z",
+    "name": "Kitten",
+    "breed": 1,
+    "description": "Kitten description",
     "available": true,
     "last_rental_date": null,
     "last_return_date": null,
-    "creation_date": "2021-12-09T13:15:37.091Z",
-    "modification_date": "2021-12-09T13:15:38.073Z",
-    "species": 1
+    "creation_date": "2022-01-12T13:18:54.491Z",
+    "modification_date": "2022-01-12T13:18:54.491Z",
+    "user": []
   }
 },
 {
   "model": "cats.cat",
   "pk": 2,
   "fields": {
-    "name": "Kitty1",
-    "breed": "American Curl",
+    "created": "2022-01-12T13:19:16.120Z",
+    "modified": "2022-01-12T13:19:16.120Z",
+    "name": "Kot admina",
+    "breed": 8,
     "description": "",
-    "available": true,
+    "available": false,
     "last_rental_date": null,
     "last_return_date": null,
-    "creation_date": "2021-12-09T14:50:11.424Z",
-    "modification_date": "2021-12-09T15:57:04.416Z",
-    "species": 1
-  }
-},
-{
-  "model": "cats.cat",
-  "pk": 3,
-  "fields": {
-    "name": "Kitty2",
-    "breed": "Sheep's Cat",
-    "description": "",
-    "available": true,
-    "last_rental_date": null,
-    "last_return_date": null,
-    "creation_date": "2021-12-09T14:50:27.609Z",
-    "modification_date": "2021-12-09T14:50:27.609Z",
-    "species": 2
-  }
-},
-{
-  "model": "cats.cat",
-  "pk": 4,
-  "fields": {
-    "name": "Kitty3",
-    "breed": "Bengal Tiger",
-    "description": "",
-    "available": true,
-    "last_rental_date": null,
-    "last_return_date": null,
-    "creation_date": "2021-12-09T14:50:52.204Z",
-    "modification_date": "2021-12-09T14:50:52.204Z",
-    "species": 3
+    "creation_date": "2022-01-12T13:19:16.120Z",
+    "modification_date": "2022-01-12T13:19:16.120Z",
+    "user": [
+      1
+    ]
   }
 }
 ]

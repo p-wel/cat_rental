@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from cats.models import Cat, Species
+from cats.models import Cat, Species, Breed
 
 
 def index(request):
@@ -12,11 +12,23 @@ def species_list(request):
     return render(request, 'cats/species.html', context)
 
 
-def cats_list(request, species_id):
-    species = Species.objects.get(pk=species_id)
+def breeds_list(request, breed_id):
+    breed = Breed.objects.get(pk=breed_id)
+    context = {'breed': breed}
+    return render(request, 'cats/breeds.html', context)
+
+
+def cats_list(request, breed_id):
+    breeds = Breed.objects.get(pk=breed_id)
     cats = Cat.objects.all()
-    context = {'species': species, 'cats_list': cats}
-    return render(request, 'cats/cats.html', context)
+    context = {'breeds_list': breeds, 'cats_list': cats}
+    return render(request, 'cats/cats_list.html', context)
+
+
+def all_cats_list(request):
+    cats = Cat.objects.all()
+    context = {'all_cats': cats}
+    return render(request, 'cats/cats_list_all.html', context)
 
 
 def cat_details(request, cat_id):

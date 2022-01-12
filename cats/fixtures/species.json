@@ -3,15 +3,15 @@
   "model": "cats.species",
   "pk": 1,
   "fields": {
-    "name": "House Cat",
-    "description": "desc of house cats"
+    "name": "House cat",
+    "description": ""
   }
 },
 {
   "model": "cats.species",
   "pk": 2,
   "fields": {
-    "name": "Farm Cat",
+    "name": "Farm cat",
     "description": ""
   }
 },
@@ -19,7 +19,7 @@
   "model": "cats.species",
   "pk": 3,
   "fields": {
-    "name": "Feral Cat",
+    "name": "Feral cat",
     "description": ""
   }
 }
