@@ -12,23 +12,18 @@ def species_list(request):
     return render(request, 'cats/species.html', context)
 
 
-def breeds_list(request, breed_id):
-    breed = Breed.objects.get(pk=breed_id)
-    context = {'breed': breed}
-    return render(request, 'cats/breeds.html', context)
-
-
-def cats_list(request, breed_id):
-    breeds = Breed.objects.get(pk=breed_id)
+def cats_list(request, species_id):
+    breeds = Breed.objects.all()
     cats = Cat.objects.all()
-    context = {'breeds_list': breeds, 'cats_list': cats}
+    species = species_id
+    context = {'breeds_list': breeds, 'cats_list': cats, 'species_id': species}
     return render(request, 'cats/cats_list.html', context)
 
 
-def all_cats_list(request):
+def explore_list(request):
     cats = Cat.objects.all()
     context = {'all_cats': cats}
-    return render(request, 'cats/cats_list_all.html', context)
+    return render(request, 'cats/explore_list.html', context)
 
 
 def cat_details(request, cat_id):
