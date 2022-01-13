@@ -1,16 +1,14 @@
 {% extends 'main/base.html' %}
-{% block title %}Cats list{% endblock %}
+{% block title %}Explore{% endblock %}
 {% block content %}
-    <h1>All Cats list</h1>
-
+    <h1>Explore all Cats</h1>
     <table class="table table-condensed">
         <thead>
         <td>Name</td>
         <td>Breed</td>
         <td>Status</td>
         </thead>
-
-        {% for cat in cats_list %}
+        {% for cat in all_cats %}
             <tr>
                 <td><a href="{% url 'cats:details' cat.id %}">{{ cat.name }}</a></td>
                 <td>{{ cat.breed }}</td>
@@ -18,5 +16,4 @@
             </tr>
         {% endfor %}
     </table>
-
 {% endblock %}

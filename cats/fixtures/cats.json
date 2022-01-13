@@ -34,5 +34,107 @@
       1
     ]
   }
+},
+{
+  "model": "cats.cat",
+  "pk": 3,
+  "fields": {
+    "created": "2022-01-13T09:00:31.145Z",
+    "modified": "2022-01-13T09:00:31.145Z",
+    "name": "Kitten2",
+    "breed": 4,
+    "description": "Desc of Kitten2",
+    "available": true,
+    "last_rental_date": null,
+    "last_return_date": null,
+    "creation_date": "2022-01-13T09:00:31.145Z",
+    "modification_date": "2022-01-13T09:00:31.145Z",
+    "user": []
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 4,
+  "fields": {
+    "created": "2022-01-13T09:00:45.628Z",
+    "modified": "2022-01-13T09:00:45.628Z",
+    "name": "catcat",
+    "breed": 6,
+    "description": "",
+    "available": true,
+    "last_rental_date": null,
+    "last_return_date": null,
+    "creation_date": "2022-01-13T09:00:45.628Z",
+    "modification_date": "2022-01-13T09:00:45.628Z",
+    "user": []
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 5,
+  "fields": {
+    "created": "2022-01-13T09:00:54.129Z",
+    "modified": "2022-01-13T09:00:54.129Z",
+    "name": "Big cat",
+    "breed": 9,
+    "description": "",
+    "available": true,
+    "last_rental_date": null,
+    "last_return_date": null,
+    "creation_date": "2022-01-13T09:00:54.129Z",
+    "modification_date": "2022-01-13T09:00:54.129Z",
+    "user": []
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 6,
+  "fields": {
+    "created": "2022-01-13T09:01:04.841Z",
+    "modified": "2022-01-13T09:01:04.841Z",
+    "name": "Quick Cat",
+    "breed": 11,
+    "description": "",
+    "available": true,
+    "last_rental_date": null,
+    "last_return_date": null,
+    "creation_date": "2022-01-13T09:01:04.841Z",
+    "modification_date": "2022-01-13T09:01:04.841Z",
+    "user": []
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 7,
+  "fields": {
+    "created": "2022-01-13T09:01:19.510Z",
+    "modified": "2022-01-13T09:01:19.510Z",
+    "name": "MericanCat",
+    "breed": 1,
+    "description": "",
+    "available": true,
+    "last_rental_date": null,
+    "last_return_date": null,
+    "creation_date": "2022-01-13T09:01:19.510Z",
+    "modification_date": "2022-01-13T09:01:19.510Z",
+    "user": []
+  }
+},
+{
+  "model": "cats.cat",
+  "pk": 8,
+  "fields": {
+    "created": "2022-01-13T09:01:46.612Z",
+    "modified": "2022-01-13T09:01:46.612Z",
+    "name": "Egyptian",
+    "breed": 2,
+    "description": "",
+    "available": true,
+    "last_rental_date": null,
+    "last_return_date": null,
+    "creation_date": "2022-01-13T09:01:46.612Z",
+    "modification_date": "2022-01-13T09:01:46.612Z",
+    "user": []
+  }
 }
 ]

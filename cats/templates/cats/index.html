@@ -5,6 +5,6 @@
 {% block content %}
     <h1>Homepage</h1>
     <h3>Rent a cat of your dreams!</h3>
+    <div><a href="{% url 'cats:explore_list' %}">Explore all cats</a> - search for any cat</div>
     <div><a href="{% url 'cats:species' %}">Species</a> - search by specific breed</div>
-    <div><a href="">Explore all cats</a> - search for any cat</div>
 {% endblock %}
