@@ -1,5 +1,10 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from cats.models import Cat, Species, Breed
+from django.urls import reverse
+from django.utils import timezone
+
+from cats.forms import CatRentalForm
+from cats.models import Cat, Species, Breed, Rental
 
 
 def index(request):
@@ -28,7 +33,9 @@ def explore_list(request):
 
 def cat_details(request, cat_id):
     cat = Cat.objects.get(pk=cat_id)
-    context = {"cat": cat}
+    form = CatRentalForm()
+    form.helper.form_action = reverse("cats:rentals", args=[cat_id])
+    context = {"cat": cat, "form": form}
     return render(request, 'cats/details.html', context)
 
 
@@ -46,3 +53,60 @@ def cat_rented(request, cat_id):
 
 def cats_about(request):
     return render(request, 'cats/about.html')
+
+
+def handle_cat_rental(request, cat_id=None):
+    def handle_rent():
+        cat = Cat.objects.get(pk=cat_id)
+        if cat.available:
+            Rental.objects.create(
+                user=user,
+                cat=cat
+            )
+            cat.available = False
+            cat.save()
+        return HttpResponseRedirect(reverse("cats:details", args=[cat_id]))
+
+    def handle_return():
+        keys = [
+            key for key in request.POST.keys()
+            if key.startswith("cat_")
+        ]
+        key = int(keys[0].split("_")[1])
+        """
+        keys - taking out proper cat's id from submit button in:
+                /rentals_list.html
+                    button name="cat_{{ rental.cat.id }}
+        """
+        cat = Cat.objects.get(pk=key)
+        rental = Rental.objects.filter(user=user, cat=cat).last()
+        """
+        rental = last rental of given cat, rented by given user
+        last() method to avoid assigning older rental that wasn't signed as returned before
+        """
+        if not rental.return_date:
+            rental.return_date = timezone.now()
+            rental.save()
+            cat.available = True
+            cat.save()
+        """
+        if not - to avoid double saves if user would click a button more than once
+                or if user would refresh/has connection issues
+        """
+        return HttpResponseRedirect(reverse("cats:rentals_list"))
+
+    def show_rented_cats():
+        rentals = Rental.objects.filter(user=user)
+        return render(request, "cats/rentals_list.html", {"rentals": rentals})
+
+    user = request.user
+    if request.method == "POST":
+        if user.is_authenticated:
+            if request.POST.get("rent"):
+                handle_rent()
+            else:
+                handle_return()
+    """
+    if request.method == "GET":
+    """
+    return show_rented_cats()

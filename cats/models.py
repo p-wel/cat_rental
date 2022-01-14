@@ -29,8 +29,6 @@ class Cat(TimeStamped):
 
     description = models.TextField(default=None, blank=True)
     available = models.BooleanField(default=True)
-    last_rental_date = models.DateTimeField(default=None, blank=True, null=True)
-    last_return_date = models.DateTimeField(default=None, blank=True, null=True)
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(auto_now=True)
     user = models.ManyToManyField("auth.User", blank=True)
@@ -57,3 +55,10 @@ class Species(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+
+class Rental(models.Model):
+    cat = models.ForeignKey("Cat", on_delete=models.CASCADE,related_name="rentals")
+    user = models.ForeignKey("auth.User", on_delete=models.CASCADE,related_name="rentals")
+    rental_date = models.DateTimeField(auto_now_add=True)
+    return_date = models.DateTimeField(null=True, blank=True)

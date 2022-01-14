@@ -7,8 +7,8 @@
 {#{% endblock %}#}
 
 
-<title>Cat details</title>
 {% extends 'main/base.html' %}
+{% block title %}Cat details{% endblock %}
 {% block content %}
     <h1>"{{ cat.name }}" details</h1>
     <div>Cat name: {{ cat.name }}</div>
