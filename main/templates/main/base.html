@@ -11,7 +11,7 @@
 
     <title>{% block title %} {% endblock %}</title>
     <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
-    {#    <img src="{% static "main/img/logo.png" %}" alt="logo" width="80" height="95">#}
+{#        <img src="{% static "main/img/logo.png" %}" alt="logo" width="80" height="95">#}
     {% block styles %} {% endblock %}
 </head>
 
@@ -28,6 +28,7 @@
                     <li><a href="{% url 'cats:index' %}" class="nav-link px-2 text-secondary">Home</a></li>
                     <li><a href="{% url 'cats:species' %}" class="nav-link px-2 text-white">Species</a></li>
                     <li><a href="" class="nav-link px-2 text-white">Profile</a></li>
+                    <li><a href="{% url 'cats:rentals_list' %}" class="nav-link px-2 text-white">Rentals</a></li>
                     <li><a href="{% url 'cats:about' %}" class="nav-link px-2 text-white">About</a></li>
                 </ul>
 

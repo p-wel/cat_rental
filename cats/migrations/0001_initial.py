@@ -40,8 +40,6 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=50)),
                 ('description', models.TextField(blank=True, default=None)),
                 ('available', models.BooleanField(default=True)),
-                ('last_rental_date', models.DateTimeField(blank=True, default=None, null=True)),
-                ('last_return_date', models.DateTimeField(blank=True, default=None, null=True)),
                 ('creation_date', models.DateTimeField(auto_now_add=True)),
                 ('modification_date', models.DateTimeField(auto_now=True)),
                 ('breed', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cats.breed')),
