@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'cat_rental.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'cat_rental_db',
+        'USER': 'psql_cats_user',
+        'PASSWORD': 'psql_cats_user',
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 
