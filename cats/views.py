@@ -34,14 +34,16 @@ def explore_list(request):
 def cat_details(request, cat_id):
     cat = Cat.objects.get(pk=cat_id)
     form = CatRentalForm()
-    form.helper.form_action = reverse("cats:rentals", args=[cat_id])
+    form.helper.form_action = reverse("cats:rental_dates", args=[cat_id])
     context = {"cat": cat, "form": form}
     return render(request, 'cats/details.html', context)
 
 
 def cat_rental_dates(request, cat_id):
     cat = Cat.objects.get(pk=cat_id)
-    context = {"cat": cat}
+    form = CatRentalForm()
+    form.helper.form_action = reverse("cats:rent_the_cat", args=[cat_id])
+    context = {"cat": cat, "form": form}
     return render(request, 'cats/rental_dates.html', context)
 
 

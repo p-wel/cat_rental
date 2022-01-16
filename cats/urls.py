@@ -7,7 +7,7 @@ urlpatterns = [
     path('cat/<int:cat_id>/rented/', cat_rented, name="rented"),
     path('cat/<int:cat_id>/rental_dates/', cat_rental_dates, name="rental_dates"),
 
-    path('cat/<int:cat_id>/rentals', handle_cat_rental, name="rentals"),
+    path('cat/<int:cat_id>/rentals', handle_cat_rental, name="rent_the_cat"),
     path('cat/rentals', handle_cat_rental, name="rentals_list"),
     path('cat/<int:cat_id>/', cat_details, name="details"),
 

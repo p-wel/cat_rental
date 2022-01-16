@@ -7,13 +7,10 @@
         {% if cat.available %}
             <div class="alert alert-success" role="alert">Available now!</div>
         {% else %}
-            <div class="alert alert-danger" role="alert">Rented</div>
+            <div class="alert alert-danger" role="alert">Rented already</div>
         {% endif %}
     </div>
     <div>Cat name: {{ cat.name }}</div>
     <div>Cat description: {{ cat.description }}</div>
-    <div><a href="{% url 'cats:rental_dates' cat.id %}">Rent a cat!</a></div>
-    {% if cat.available %}
-        {% crispy form %}
-    {% endif %}
+    {% crispy form %}
 {% endblock %}

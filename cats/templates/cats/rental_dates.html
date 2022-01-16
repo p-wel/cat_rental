@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}Cat details{% endblock %}
 {% block content %}
-    <h1>"{{ cat.name }}" details</h1>
+    <h1>Choose dates</h1>
     <div>Cat name: {{ cat.name }}</div>
     <div>Cat description: {{ cat.description }}</div>
     <ul>
         Choose dates:
     </ul>
-    <ul>
-        Po wybraniu dat przenosi do <a href="{% url 'cats:rented' cat.id %}">rented</a>
-    </ul>
+        {% crispy form %}
 {% endblock %}
