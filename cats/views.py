@@ -47,12 +47,6 @@ def cat_rental_dates(request, cat_id):
     return render(request, 'cats/rental_dates.html', context)
 
 
-def cat_rented(request, cat_id):
-    cat = Cat.objects.get(pk=cat_id)
-    context = {"cat": cat}
-    return render(request, 'cats/rented.html', context)
-
-
 def cats_about(request):
     return render(request, 'cats/about.html')
 

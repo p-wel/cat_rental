@@ -7,10 +7,13 @@
         {% if cat.available %}
             <div class="alert alert-success" role="alert">Available now!</div>
         {% else %}
-            <div class="alert alert-danger" role="alert">Rented already</div>
+            <div class="alert alert-danger" role="alert">Rented already. You can rent it for future dates</div>
         {% endif %}
     </div>
+
     <div>Cat name: {{ cat.name }}</div>
     <div>Cat description: {{ cat.description }}</div>
-    {% crispy form %}
+    <div style="text-align: center;">
+        {% crispy form %}
+    </div>
 {% endblock %}
