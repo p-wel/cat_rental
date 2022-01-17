@@ -5,8 +5,14 @@
     <h1>Choose dates</h1>
     <div>Cat name: {{ cat.name }}</div>
     <div>Cat description: {{ cat.description }}</div>
-    <ul>
+    <div>
         Choose dates:
-    </ul>
-        {% crispy form %}
+        <ul>
+            From: <input type='date'>
+            To: <input type='date'>
+        </ul>
+        <div style="text-align: center;">
+            {% crispy form %}
+        </div>
+    </div>
 {% endblock %}

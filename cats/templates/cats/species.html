@@ -4,8 +4,17 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Species</h1>
-    Choose the species:
-        {% for species in species_list %}
-            <li><a href="{% url 'cats:list' species.id %}">{{ species.name }}</a></li>
-        {% endfor %}
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+            Choose the species
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            {% for species in species_list %}
+                <li><a class="dropdown-item" href="{% url 'cats:list' species.id %}">{{ species.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
+
+
