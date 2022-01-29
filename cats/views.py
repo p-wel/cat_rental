@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 
-from cats.forms import CatRentalForm
+from cats.forms import CatRentalForm, CalendarForm
 from cats.models import Cat, Species, Breed, Rental
 
 
@@ -33,21 +33,22 @@ def explore_list(request):
 
 def cat_details(request, cat_id):
     cat = Cat.objects.get(pk=cat_id)
-    form = CatRentalForm()
-    form.helper.form_action = reverse("cats:rental_dates", args=[cat_id])
-    context = {"cat": cat, "form": form}
+    rental_form = CatRentalForm()
+    rental_form.helper.form_action = reverse("cats:rental_dates", args=[cat_id])
+    context = {"cat": cat, "rental_form": rental_form}
     return render(request, 'cats/details.html', context)
 
 
 def cat_rental_dates(request, cat_id):
     cat = Cat.objects.get(pk=cat_id)
-    form = CatRentalForm()
-    form.helper.form_action = reverse("cats:rent_the_cat", args=[cat_id])
-    context = {"cat": cat, "form": form}
+    rental_form = CatRentalForm()
+    calendar_form = CalendarForm()
+    rental_form.helper.form_action = reverse("cats:rent_the_cat", args=[cat_id])
+    context = {"cat": cat, "rental_form": rental_form, "calendar_form": calendar_form}
     return render(request, 'cats/rental_dates.html', context)
 
 
-def cats_about(request):
+def about(request):
     return render(request, 'cats/about.html')
 
 
@@ -57,7 +58,7 @@ def handle_cat_rental(request, cat_id=None):
         if cat.available:
             Rental.objects.create(
                 user=user,
-                cat=cat
+                cat=cat,
             )
             cat.available = False
             cat.save()
@@ -68,17 +69,17 @@ def handle_cat_rental(request, cat_id=None):
             key for key in request.POST.keys()
             if key.startswith("cat_")
         ]
-        key = int(keys[0].split("_")[1])
         """
         keys - taking out proper cat's id from submit button in:
                 /rentals_list.html
                     button name="cat_{{ rental.cat.id }}
         """
+        key = int(keys[0].split("_")[1])
         cat = Cat.objects.get(pk=key)
         rental = Rental.objects.filter(user=user, cat=cat).last()
         """
         rental = last rental of given cat, rented by given user
-        last() method to avoid assigning older rental that wasn't signed as returned before
+        last() method to avoid assigning older rentals that weren't signed as returned before
         """
         if not rental.return_date:
             rental.return_date = timezone.now()
