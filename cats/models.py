@@ -16,6 +16,7 @@ class TimeStamped(models.Model, CheckAddDateMixin):
     class Meta:
         abstract = True
 
+
 class Cat(TimeStamped):
     name = models.CharField(max_length=50)
     breed = models.ForeignKey('cats.Breed', on_delete=models.CASCADE)
@@ -58,7 +59,7 @@ class Species(models.Model):
 
 
 class Rental(models.Model):
-    cat = models.ForeignKey("Cat", on_delete=models.CASCADE,related_name="rentals")
-    user = models.ForeignKey("auth.User", on_delete=models.CASCADE,related_name="rentals")
-    rental_date = models.DateTimeField(auto_now_add=True)
-    return_date = models.DateTimeField(null=True, blank=True)
+    cat = models.ForeignKey("Cat", on_delete=models.CASCADE, related_name="rentals")
+    user = models.ForeignKey("auth.User", on_delete=models.CASCADE, related_name="rentals")
+    rental_date = models.DateField(null=True, blank=True)
+    return_date = models.DateField(null=True, blank=True)

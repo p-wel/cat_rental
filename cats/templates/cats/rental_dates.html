@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+
 {% block title %}Cat details{% endblock %}
 {% block content %}
     <h1>Choose dates</h1>
@@ -8,11 +9,13 @@
     <div>
         Choose dates:
         <ul>
-            From: <input type='date'>
-            To: <input type='date'>
+            From:
+            {% crispy calendar_form %}
+            To:
+            {% crispy calendar_form %}
         </ul>
         <div style="text-align: center;">
-            {% crispy form %}
+            {% crispy rental_form %}
         </div>
     </div>
 {% endblock %}

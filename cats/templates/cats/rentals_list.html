@@ -4,27 +4,17 @@
     <h1>Your rentals</h1>
     <table class="table table-stripped">
         <thead>
-        <th>
-            Cat's name
-        </th>
-        <th>
-            Rental date
-        </th>
-        <th>
-            Return date
-        </th>
+        <th>Cat's name</th>
+        <th>Rental date</th>
+        <th>Return date</th>
         </thead>
         <tbody>
         {% for rental in rentals %}
             <form action="{% url "cats:rentals_list" %}" method="post">
                 {% csrf_token %}
                 <tr>
-                    <td>
-                        {{ rental.cat.name }}
-                    </td>
-                    <td>
-                        {{ rental.rental_date }}
-                    </td>
+                    <td>{{ rental.cat.name }}</td>
+                    <td>{{ rental.rental_date }}</td>
                     <td>
                         {% if rental.return_date %} {{ rental.return_date }}
                         {% else %}
