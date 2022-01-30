@@ -1,12 +1,13 @@
 from django.urls import path
 from cats.views import about, index, species_list, cats_list, cat_details, cat_rental_dates, \
-    explore_list, handle_cat_rental
+    explore_list, handle_cat_rental, mailing
 
 app_name = "cats"
 
 urlpatterns = [
     path('', index, name="index"),
-    path('about', about, name="about"),
+    path('about/', about, name="about"),
+    path('mailing/', mailing, name="mailing"),
     path('species/', species_list, name="species"),
     path('explore/', explore_list, name="explore_list"),
     path('species/<int:species_id>/', cats_list, name="list"),

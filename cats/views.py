@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -107,3 +108,12 @@ def handle_cat_rental(request, cat_id=None):
     if request.method == "GET":
     """
     return show_rented_cats()
+
+
+def mailing(request):
+    send_mail('Hello world!',
+              'Message is here',
+              'mail @ gmail . com',
+              ['mail @ gmail . com'],
+              fail_silently=False)
+    return render(request, 'cats/mailing.html')
