@@ -2,16 +2,27 @@
 {% block title %}Explore{% endblock %}
 {% block content %}
     <h1>Explore all Cats</h1>
+    <div>
+        Search cats available:
+        <div>
+            From <input type="date" name="date_from">
+            To <input type="date" name="date_to">
+        </div>
+    </div>
     <table class="table table-condensed">
         <thead>
         <td>Name</td>
         <td>Breed</td>
+        <td>Last rental</td>
+        <td>Last return</td>
         <td>Status</td>
         </thead>
         {% for cat in all_cats %}
             <tr>
                 <td><a href="{% url 'cats:details' cat.id %}">{{ cat.name }}</a></td>
                 <td>{{ cat.breed }}</td>
+                <td>{{ cat.rentals.last.rental_date }}</td>
+                <td>{{ cat.rentals.last.return_date }}</td>
                 <td>{% if cat.available == True %}Available{% else %}Rented{% endif %}</td>
             </tr>
         {% endfor %}

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.utils.timezone import now, timedelta
 
@@ -35,10 +37,7 @@ class Cat(TimeStamped):
     user = models.ManyToManyField("auth.User", blank=True)
 
     def __str__(self):
-        return f"{self.id}. {self.breed}"
-
-    def rent(self):
-        self.available = False
+        return f"{self.id}. {self.name}"
 
 
 class Breed(models.Model):
@@ -54,6 +53,9 @@ class Species(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(default=None, blank=True)
 
+    class Meta:
+        verbose_name_plural = "Species"
+
     def __str__(self):
         return f"{self.name}"
 
@@ -61,5 +63,8 @@ class Species(models.Model):
 class Rental(models.Model):
     cat = models.ForeignKey("Cat", on_delete=models.CASCADE, related_name="rentals")
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE, related_name="rentals")
-    rental_date = models.DateField(null=True, blank=True)
+    rental_date = models.DateField(auto_now_add=datetime.now())
     return_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return f"Rental {self.id} ({self.cat.name})"

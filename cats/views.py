@@ -58,7 +58,7 @@ def handle_cat_rental(request, cat_id=None):
         if cat.available:
             Rental.objects.create(
                 user=user,
-                cat=cat,
+                cat=cat
             )
             cat.available = False
             cat.save()
