@@ -63,7 +63,7 @@ class Species(models.Model):
 class Rental(models.Model):
     cat = models.ForeignKey("Cat", on_delete=models.CASCADE, related_name="rentals")
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE, related_name="rentals")
-    rental_date = models.DateField(auto_now_add=datetime.now())
+    rental_date = models.DateField(null=True, blank=True)
     return_date = models.DateField(null=True, blank=True)
 
     def __str__(self):

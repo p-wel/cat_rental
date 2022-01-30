@@ -7,15 +7,9 @@
     <div>Cat name: {{ cat.name }}</div>
     <div>Cat description: {{ cat.description }}</div>
     <div>
-        Choose dates:
-        <ul>
-            From:
-            {% crispy calendar_form %}
-            To:
-            {% crispy calendar_form %}
-        </ul>
-        <div style="text-align: center;">
-            {% crispy rental_form %}
+    Choose dates:
+        <div style="text-align: center; max-width: 200px">
+                {% crispy rental_form %}
         </div>
     </div>
 {% endblock %}
