@@ -13,3 +13,7 @@ To install:
 3. Import data from fixtures
 4. Make migrations
 5. py manage.py runserver
++ 6. settings.py - provide your:
+    EMAIL_HOST_USER
+    EMAIL_HOST_PASSWORD
+    to make mailing work properly
