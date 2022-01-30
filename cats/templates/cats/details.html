@@ -12,7 +12,7 @@
     </div>
     <div>Cat name: {{ cat.name }}</div>
     <div>Cat description: {{ cat.description }}</div>
-    <div style="text-align: center;">
-        {% crispy rental_form %}
+    <div>
+        <a href="{% url 'cats:rental_dates' cat.id %}">Rent {{ cat.name}}</a>
     </div>
 {% endblock %}

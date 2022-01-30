@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 
-from cats.forms import CatRentalForm, CalendarForm
+from cats.forms import CatRentalForm
 from cats.models import Cat, Species, Breed, Rental
 
 
@@ -42,9 +42,8 @@ def cat_details(request, cat_id):
 def cat_rental_dates(request, cat_id):
     cat = Cat.objects.get(pk=cat_id)
     rental_form = CatRentalForm()
-    calendar_form = CalendarForm()
     rental_form.helper.form_action = reverse("cats:rent_the_cat", args=[cat_id])
-    context = {"cat": cat, "rental_form": rental_form, "calendar_form": calendar_form}
+    context = {"cat": cat, "rental_form": rental_form}
     return render(request, 'cats/rental_dates.html', context)
 
 
@@ -58,7 +57,9 @@ def handle_cat_rental(request, cat_id=None):
         if cat.available:
             Rental.objects.create(
                 user=user,
-                cat=cat
+                cat=cat,
+                rental_date=request.POST.get("date_from"),
+                return_date=request.POST.get("date_to")
             )
             cat.available = False
             cat.save()
@@ -81,11 +82,10 @@ def handle_cat_rental(request, cat_id=None):
         rental = last rental of given cat, rented by given user
         last() method to avoid assigning older rentals that weren't signed as returned before
         """
-        if not rental.return_date:
-            rental.return_date = timezone.now()
-            rental.save()
-            cat.available = True
-            cat.save()
+        rental.return_date = timezone.now()
+        rental.save()
+        cat.available = True
+        cat.save()
         """
         if not - to avoid double saves if user would click a button more than once
                 or if user would refresh/has connection issues
