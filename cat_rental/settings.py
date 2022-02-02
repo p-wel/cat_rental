@@ -138,7 +138,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'mail @ gmail . com'
-EMAIL_HOST_PASSWORD = 'pass'
+EMAIL_HOST_USER = ''  # TODO put mail here
+EMAIL_HOST_PASSWORD = ''  # TODO put mail password here
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
