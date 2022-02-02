@@ -51,7 +51,7 @@ def congrats_mail(request, cat_id):
 
     send_mail('Congrats, cat rented!',
               congrats_template,
-              'djangomailingtest@gmail.com', # TODO put from_mail here
+              '', # TODO put from_mail here
               [request.user.email],
               fail_silently=False)
     return render(request, 'cats/congrats.html', {'cat': cat})
