@@ -31,7 +31,7 @@ py manage.py migrate
 - in cats/views.py "mailing" method set:
     - from_mail
     - recipient_mail
-    - 
+
 ## Run server on your localhost
 ```
 py manage.py runserver
