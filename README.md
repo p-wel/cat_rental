@@ -8,13 +8,13 @@ Screenshoots:
 
 
 To install:
-1. Create new database in postgres (name, login, ... from settings.py) / Or już change database for sqlite
-3. > pip install -r requirements.txt
+1. Create new database in postgres (name, login, ... from settings.py) / Or just change database for sqlite
+3. pip install -r requirements.txt
 4. Import data from fixtures if you want
-5. > make migrations
+5. make migrations
 6. settings.py - set yours:
     EMAIL_HOST_USER
     EMAIL_HOST_PASSWORD  
   cats/views.py - "mailing" method - set from_mail and recipient_mail
     to make mailing work properly
-7. > py manage.py runserver
+7. py manage.py runserver
