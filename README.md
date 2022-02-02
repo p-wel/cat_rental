@@ -30,7 +30,9 @@ py manage.py migrate
     - EMAIL_HOST_PASSWORD  
 - in cats/views.py "mailing" method set:
     - from_mail
-    - recipient_mail
+
+(you can find it by TODO tag)
+
 
 ## Run server on your localhost
 ```
