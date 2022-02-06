@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}Explore{% endblock %}
 {% block content %}
     <h1>Explore all Cats</h1>
     <div>
         Search cats available:
-        <div>
-            From <input type="date" name="date_from">
-            To <input type="date" name="date_to">
+        <div style="text-align: center; max-width: 200px">
+            {% crispy date_form %}
         </div>
     </div>
     <table class="table table-condensed">

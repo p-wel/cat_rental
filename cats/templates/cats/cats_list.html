@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}Cats list{% endblock %}
 {% block content %}
     <h1>Cats</h1>
     <div>
         Search cats available:
-        <div>
-            From <input type="date">
-            To <input type="date">
+        <div style="text-align: center; max-width: 200px">
+            {% crispy date_form %}
         </div>
     </div>
     <table class="table table-condensed">
@@ -19,13 +19,13 @@
         </thead>
         {% for cat in cats_list %}
             {% if cat.breed.species_id == species_id %}
-            <tr>
-                <td><a href="{% url 'cats:details' cat.id %}">{{ cat.name }}</a></td>
-                <td>{{ cat.breed }}</td>
-                <td>{{ cat.rentals.last.rental_date }}</td>
-                <td>{{ cat.rentals.last.return_date }}</td>
-                <td>{% if cat.available == True %}Available{% else %}Rented{% endif %}</td>
-            </tr>
+                <tr>
+                    <td><a href="{% url 'cats:details' cat.id %}">{{ cat.name }}</a></td>
+                    <td>{{ cat.breed }}</td>
+                    <td>{{ cat.rentals.last.rental_date }}</td>
+                    <td>{{ cat.rentals.last.return_date }}</td>
+                    <td>{% if cat.available == True %}Available{% else %}Rented{% endif %}</td>
+                </tr>
             {% endif %}
         {% endfor %}
     </table>
