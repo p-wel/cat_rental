@@ -1,7 +1,7 @@
-from datetime import datetime
+from datetime import timedelta
 
 from django.db import models
-from django.utils.timezone import now, timedelta
+from django.utils.timezone import now
 
 
 class CheckAddDateMixin:
