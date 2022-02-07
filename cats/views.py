@@ -5,7 +5,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
 
-from cats.forms import CatRentalForm
+from cats.forms import RentalForm, ListForm
 from cats.models import Cat, Species, Breed, Rental
 
 
@@ -19,7 +19,9 @@ def about(request):
 
 def explore_list(request):
     cats = Cat.objects.all()
-    context = {'all_cats': cats}
+    date_form = ListForm()
+    # date_form.helper.form_action = reverse("cats:explore_list_dates")
+    context = {'all_cats': cats, 'date_form': date_form}
     return render(request, 'cats/explore_list.html', context)
 
 
@@ -30,18 +32,20 @@ def species_list(request):
 
 
 def cats_list(request, species_id):
-    breeds = Breed.objects.all()
     cats = Cat.objects.all()
     species = species_id
-    context = {'breeds_list': breeds, 'cats_list': cats, 'species_id': species}
+    breeds = Breed.objects.all()
+    date_form = ListForm()
+    # date_form.helper.form_action = reverse("cats:list_dates")
+    context = {'breeds_list': breeds, 'cats_list': cats, 'species_id': species, 'date_form': date_form}
     return render(request, 'cats/cats_list.html', context)
 
 
 def cat_details(request, cat_id):
     cat = Cat.objects.get(pk=cat_id)
-    rental_form = CatRentalForm()
-    rental_form.helper.form_action = reverse("cats:rental_dates", args=[cat_id])
-    context = {"cat": cat, "rental_form": rental_form}
+    date_form = RentalForm()
+    date_form.helper.form_action = reverse("cats:rental_dates", args=[cat_id])
+    context = {"cat": cat, "rental_form": date_form}
     return render(request, 'cats/details.html', context)
 
 
@@ -51,7 +55,7 @@ def congrats_mail(request, cat_id):
 
     send_mail('Congrats, cat rented!',
               congrats_template,
-              '', # TODO put from_mail here
+              '',  # TODO put from_mail here
               [request.user.email],
               fail_silently=False)
     return render(request, 'cats/congrats.html', {'cat': cat})
@@ -59,7 +63,7 @@ def congrats_mail(request, cat_id):
 
 def cat_rental_dates(request, cat_id):
     cat = Cat.objects.get(pk=cat_id)
-    rental_form = CatRentalForm()
+    rental_form = RentalForm()
     rental_form.helper.form_action = reverse("cats:rent_the_cat", args=[cat_id])
     context = {"cat": cat, "rental_form": rental_form}
     return render(request, 'cats/rental_dates.html', context)
@@ -84,12 +88,12 @@ def handle_cat_rental(request, cat_id=None):
             key for key in request.POST.keys()
             if key.startswith("cat_")
         ]
+        key = int(keys[0].split("_")[1])
         """
         keys - taking out proper cat's id from submit button in:
                 /rentals_list.html
                     button name="cat_{{ rental.cat.id }}
         """
-        key = int(keys[0].split("_")[1])
         cat = Cat.objects.get(pk=key)
         rental = Rental.objects.filter(user=user, cat=cat).last()
         """
