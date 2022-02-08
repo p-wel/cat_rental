@@ -38,7 +38,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
 
-    'cats.apps.catsConfig',
+    'cats.apps.CatsConfig',
     'main.apps.MainConfig',
     'register.apps.RegisterConfig',
 ]

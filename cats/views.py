@@ -36,7 +36,12 @@ def cats_list(request, species_id):
     species = species_id
     breeds = Breed.objects.all()
     date_form = ListForm()
-    # date_form.helper.form_action = reverse("cats:list_dates")
+    # date_form.helper.form_action = reverse("cats:list_dates",
+    #                                        args=[species_id,
+    #                                              date_form.date_from,
+    #                                              date_form.date_to]
+    #                                        )
+    date_form.helper.form_action = reverse("cats:list", args=[species_id])
     context = {'breeds_list': breeds, 'cats_list': cats, 'species_id': species, 'date_form': date_form}
     return render(request, 'cats/cats_list.html', context)
 
@@ -55,7 +60,7 @@ def congrats_mail(request, cat_id):
 
     send_mail('Congrats, cat rented!',
               congrats_template,
-              '',  # TODO put from_mail here
+              ''
               [request.user.email],
               fail_silently=False)
     return render(request, 'cats/congrats.html', {'cat': cat})
