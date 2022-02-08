@@ -28,8 +28,6 @@ py manage.py migrate
 - in settings.py - set yours:
     - EMAIL_HOST_USER
     - EMAIL_HOST_PASSWORD  
-- in cats/views.py "mailing" method set:
-    - from_mail
 
 (you can find it by TODO tag)
 
