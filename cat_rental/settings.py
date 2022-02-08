@@ -38,7 +38,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
 
-    'cats.apps.catsConfig',
+    'cats.apps.CatsConfig',
     'main.apps.MainConfig',
     'register.apps.RegisterConfig',
 ]
@@ -138,7 +138,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = ''  # TODO put mail here
-EMAIL_HOST_PASSWORD = ''  # TODO put mail password here
+EMAIL_HOST_USER = 'djangomailingtest@gmail.com'  # TODO put mail here
+EMAIL_HOST_PASSWORD = 'Djang00123'  # TODO put mail password here
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
