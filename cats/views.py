@@ -60,7 +60,7 @@ def congrats_mail(request, cat_id):
 
     send_mail('Congrats, cat rented!',
               congrats_template,
-              ''
+              '',
               [request.user.email],
               fail_silently=False)
     return render(request, 'cats/congrats.html', {'cat': cat})
