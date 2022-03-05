@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
+{% load widget_tweaks %}
 {% block title %}Cat details{% endblock %}
 {% block content %}
     <h1>Choose dates</h1>
-    <div>Cat name: {{ cat.name }}</div>
-    <div>Cat description: {{ cat.description }}</div>
-    <div>
-    Choose dates:
-        <div style="text-align: center; max-width: 200px">
-                {% crispy rental_form %}
-        </div>
+    <div style="text-align: center; max-width: 200px">
+        <fieldset disabled>
+            <label>Cat:</label>
+            {% render_field form.cat class="form-control" %}
+        </fieldset>
+        {% crispy rental_form %}
     </div>
 {% endblock %}

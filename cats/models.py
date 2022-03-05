@@ -37,7 +37,7 @@ class Cat(TimeStamped):
     user = models.ManyToManyField("auth.User", blank=True)
 
     def __str__(self):
-        return f"{self.id}. {self.name}"
+        return f"{self.name} (ID: {self.id})"
 
 
 class Breed(models.Model):

@@ -1,69 +1,99 @@
+from crispy_forms import helper
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
 
-from cats.forms import RentalForm, ListForm
+from cats.forms import RentalForm, SearchForm
 from cats.models import Cat, Species, Breed, Rental
 
 
-def index(request):
-    return render(request, 'cats/index.html')
+class IndexView(TemplateView):
+    template_name = 'cats/index.html'
 
 
-def about(request):
-    return render(request, 'cats/about.html')
+class AboutView(TemplateView):
+    template_name = 'cats/about.html'
 
 
-def explore_list(request):
-    cats = Cat.objects.all()
-    date_form = ListForm()
-    # date_form.helper.form_action = reverse("cats:explore_list_dates")
-    context = {'all_cats': cats, 'date_form': date_form}
-    return render(request, 'cats/explore_list.html', context)
+class SpeciesListView(ListView):
+    model = Species
+    template_name = 'cats/species.html'
 
 
-def species_list(request):
-    species = Species.objects.all()
-    context = {'species_list': species}
-    return render(request, 'cats/species.html', context)
+class ExploreListView(ListView):
+    model = Cat
+    template_name = 'cats/explore_list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = SearchForm()
+        return context
+
+
+# OLD FUNCTION VIEW
+
+# def explore_list(request):
+#     cats = Cat.objects.all()
+#     search_form = SearchForm()
+#     search_form.helper.form_action = reverse("cats:explore_list_dates")
+#     context = {'all_cats': cats, 'search_form': search_form}
+#     return render(request, 'cats/explore_list.html', context)
+
+
+class CatsListView(ListView):
+    model = Cat
+    template_name = 'cats/cats_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = SearchForm()
+        return context
+
+
+# OLD FUNCTION VIEW
 
 def cats_list(request, species_id):
     cats = Cat.objects.all()
-    species = species_id
     breeds = Breed.objects.all()
-    date_form = ListForm()
+    search_form = SearchForm()
     # date_form.helper.form_action = reverse("cats:list_dates",
     #                                        args=[species_id,
-    #                                              date_form.date_from,
-    #                                              date_form.date_to]
+    #                                              search_form.date_from,
+    #                                              search_form.date_to]
     #                                        )
-    date_form.helper.form_action = reverse("cats:list", args=[species_id])
-    context = {'breeds_list': breeds, 'cats_list': cats, 'species_id': species, 'date_form': date_form}
+    search_form.helper.form_action = reverse("cats:list", args=[species_id])
+    context = {'breeds_list': breeds, 'cats_list': cats, 'species_id': species_id, 'search_form': search_form}
     return render(request, 'cats/cats_list.html', context)
 
 
-def cat_details(request, cat_id):
-    cat = Cat.objects.get(pk=cat_id)
-    date_form = RentalForm()
-    date_form.helper.form_action = reverse("cats:rental_dates", args=[cat_id])
-    context = {"cat": cat, "rental_form": date_form}
-    return render(request, 'cats/details.html', context)
+class CatDetailView(DetailView):
+    model = Cat
+    template_name = 'cats/details.html'
 
 
-def congrats_mail(request, cat_id):
-    cat = Cat.objects.get(pk=cat_id)
-    congrats_template = render_to_string('cats/congrats_mail_template.html', {'cat': cat})
+# OLD FUNCTION VIEW
 
-    send_mail('Congrats, cat rented!',
-              congrats_template,
-              '',
-              [request.user.email],
-              fail_silently=False)
-    return render(request, 'cats/congrats.html', {'cat': cat})
+# def cat_details(request, cat_id):
+#     cat = Cat.objects.get(pk=cat_id)
+#     context = {"cat": cat}
+#     return render(request, 'cats/details.html', context)
+
+class RentalCreateView(CreateView):
+    model = Rental
+    fields = ['cat', 'user', 'rental_date', 'return_date']
+    template_name = 'cats/rental_dates.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rental_form'] = RentalForm()
+        return context
+
+    def get_initial(self):
+        return {'user': self.request.user, 'cat': self.kwargs['cat_id']}
 
 
 def cat_rental_dates(request, cat_id):
@@ -133,3 +163,15 @@ def handle_cat_rental(request, cat_id=None):
     if request.method == "GET":
     """
     return show_rented_cats()
+
+
+def congrats_mail(request, cat_id):
+    cat = Cat.objects.get(pk=cat_id)
+    congrats_template = render_to_string('cats/congrats_mail_template.html', {'cat': cat})
+
+    send_mail('Congrats, cat rented!',
+              congrats_template,
+              '',
+              [request.user.email],
+              fail_silently=False)
+    return render(request, 'cats/congrats.html', {'cat': cat})
