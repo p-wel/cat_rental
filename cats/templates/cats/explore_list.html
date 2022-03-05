@@ -3,13 +3,11 @@
 {% block title %}Explore{% endblock %}
 {% block content %}
     <h1>Explore all Cats</h1>
-    <div>
-        Search cats available:
-        <div style="text-align: center; max-width: 200px">
-            {% crispy date_form %}
-        </div>
+    <div style="width: 200px; text-align: center; margin: auto">
+        {% crispy search_form %}
     </div>
-    <table class="table table-condensed">
+    <hr class="rounded">
+    <table class="table table-hover">
         <thead>
         <td>Name</td>
         <td>Breed</td>
@@ -17,9 +15,10 @@
         <td>Last return</td>
         <td>Status</td>
         </thead>
-        {% for cat in all_cats %}
+        {% for cat in object_list %}
             <tr>
-                <td><a href="{% url 'cats:details' cat.id %}">{{ cat.name }}</a></td>
+                <td><a class="btn btn-outline-primary" href="{% url 'cats:details' cat.id %}"
+                       role="button">{{ cat.name }}</a></td>
                 <td>{{ cat.breed }}</td>
                 <td>{{ cat.rentals.last.rental_date }}</td>
                 <td>{{ cat.rentals.last.return_date }}</td>

@@ -4,7 +4,6 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Homepage</h1>
-    <h3>Rent a cat of your dreams!</h3>
-    <div><a href="{% url 'cats:explore_list' %}">Explore all cats</a> - search for any cat</div>
-    <div><a href="{% url 'cats:species' %}">Species</a> - search by specific breed</div>
+    <h4 style="text-align: center">Rent a cat of your dreams!</h4>
+    <div style="text-align: center"><a class="btn btn-primary" href="{% url 'cats:species' %}">Explore Cats</a></div>
 {% endblock %}
