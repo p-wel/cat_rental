@@ -19,9 +19,19 @@ class TimeStamped(models.Model, CheckAddDateMixin):
         abstract = True
 
 
+class CatQuerySet(models.QuerySet):
+
+    def filter_by_dates(self, rental_date, return_date):
+        rentals_list = Rental.objects.filter(rental_date__gte=rental_date, return_date__lte=return_date)
+        rented_cats_id_list = rentals_list.values_list("cat")
+        available_cats = self.exclude(id__in=rented_cats_id_list)
+        return available_cats
+
+
 class Cat(TimeStamped):
     name = models.CharField(max_length=50)
     breed = models.ForeignKey('cats.Breed', on_delete=models.CASCADE)
+    objects = CatQuerySet.as_manager()
 
     """
     <Species: Breeds>

@@ -4,7 +4,7 @@
 {% block content %}
     <h1>Cats</h1>
     <div style="width: 200px; text-align: center; margin: auto">
-            {% crispy search_form %}
+        {% crispy search_form %}
     </div>
     <hr class="rounded">
     <table class="table table-hover">
@@ -13,7 +13,7 @@
         <td>Breed</td>
         <td>Last rental</td>
         <td>Last return</td>
-        <td>Status</td>
+{#        <td>Status</td>#}
         </thead>
         {% for cat in cats_list %}
             {% if cat.breed.species_id == species_id %}
@@ -23,7 +23,7 @@
                     <td>{{ cat.breed }}</td>
                     <td>{{ cat.rentals.last.rental_date }}</td>
                     <td>{{ cat.rentals.last.return_date }}</td>
-                    <td>{% if cat.available == True %}Available{% else %}Rented{% endif %}</td>
+{#                    <td>{% if cat.available == True %}Available{% else %}Rented{% endif %}</td>#}
                 </tr>
             {% endif %}
         {% endfor %}

@@ -2,9 +2,6 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Row, Column
 
-from cats import models
-from cats.models import Rental
-
 
 class CalendarForm(forms.Form):
     date_from = forms.DateField(widget=forms.DateInput(
