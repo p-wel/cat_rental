@@ -24,6 +24,7 @@ class SpeciesListView(ListView):
     template_name = 'cats/species.html'
 
 
+# CBV Explore
 class ExploreListView(ListView):
     model = Cat
     template_name = 'cats/explore_list.html'
@@ -34,14 +35,22 @@ class ExploreListView(ListView):
         return context
 
 
-# OLD FUNCTION VIEW
-
-# def explore_list(request):
-#     cats = Cat.objects.all()
-#     search_form = SearchForm()
-#     search_form.helper.form_action = reverse("cats:explore_list_dates")
-#     context = {'all_cats': cats, 'search_form': search_form}
-#     return render(request, 'cats/explore_list.html', context)
+def explore_list(request):
+    cats = Cat.objects.all()
+    search_form = SearchForm()
+    if request.method == "GET":
+        search_form.helper.form_action = reverse("cats:explore_list")
+        context = {'all_cats': cats, 'search_form': search_form}
+        return render(request, 'cats/explore_list.html', context)
+    else:
+        breeds = Breed.objects.all()
+        date_from = request.POST.get("date_from")
+        date_to = request.POST.get("date_to")
+        cats_available = Cat.objects.filter_by_dates(date_from, date_to)
+        context = {'breeds_list': breeds, 'cats_list': cats_available,
+                   'search_form': search_form}
+        search_form.helper.form_action = reverse("cats:explore_list")
+        return render(request, 'cats/explore_list.html', context)
 
 
 class CatsListView(ListView):
@@ -55,19 +64,21 @@ class CatsListView(ListView):
 
 
 # OLD FUNCTION VIEW
-
 def cats_list(request, species_id):
-    cats = Cat.objects.all()
-    breeds = Breed.objects.all()
     search_form = SearchForm()
-    # date_form.helper.form_action = reverse("cats:list_dates",
-    #                                        args=[species_id,
-    #                                              search_form.date_from,
-    #                                              search_form.date_to]
-    #                                        )
-    search_form.helper.form_action = reverse("cats:list", args=[species_id])
-    context = {'breeds_list': breeds, 'cats_list': cats, 'species_id': species_id, 'search_form': search_form}
-    return render(request, 'cats/cats_list.html', context)
+    if request.method == "GET":
+        search_form.helper.form_action = reverse("cats:list", args=[species_id])
+        context = {'species_id': species_id, 'search_form': search_form}
+        return render(request, 'cats/cats_list.html', context)
+    else:
+        breeds = Breed.objects.all()
+        date_from = request.POST.get("date_from")
+        date_to = request.POST.get("date_to")
+        cats_available = Cat.objects.filter_by_dates(date_from, date_to)
+        context = {'breeds_list': breeds, 'cats_list': cats_available, 'species_id': species_id,
+                   'search_form': search_form}
+        search_form.helper.form_action = reverse("cats:list", args=[species_id])
+        return render(request, 'cats/cats_list.html', context)
 
 
 class CatDetailView(DetailView):
@@ -76,7 +87,6 @@ class CatDetailView(DetailView):
 
 
 # OLD FUNCTION VIEW
-
 # def cat_details(request, cat_id):
 #     cat = Cat.objects.get(pk=cat_id)
 #     context = {"cat": cat}
@@ -96,6 +106,7 @@ class RentalCreateView(CreateView):
         return {'user': self.request.user, 'cat': self.kwargs['cat_id']}
 
 
+# OLD FUNCTION VIEW
 def cat_rental_dates(request, cat_id):
     cat = Cat.objects.get(pk=cat_id)
     rental_form = RentalForm()
