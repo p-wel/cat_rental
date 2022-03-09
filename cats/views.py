@@ -25,14 +25,14 @@ class SpeciesListView(ListView):
 
 
 # CBV Explore
-class ExploreListView(ListView):
-    model = Cat
-    template_name = 'cats/explore_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['search_form'] = SearchForm()
-        return context
+# class ExploreListView(ListView):
+#     model = Cat
+#     template_name = 'cats/explore_list.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['search_form'] = SearchForm()
+#         return context
 
 
 def explore_list(request):
@@ -118,15 +118,17 @@ def cat_rental_dates(request, cat_id):
 def handle_cat_rental(request, cat_id=None):
     def handle_rent():
         cat = Cat.objects.get(pk=cat_id)
-        if cat.available:
-            Rental.objects.create(
-                user=user,
-                cat=cat,
-                rental_date=request.POST.get("date_from"),
-                return_date=request.POST.get("date_to")
-            )
-            cat.available = False
-            cat.save()
+
+        # TODO: if cat is available in given timeframes
+        # if cat.available:
+        Rental.objects.create(
+            user=user,
+            cat=cat,
+            rental_date=request.POST.get("date_from"),
+            return_date=request.POST.get("date_to"),
+            valid=True
+        )
+        cat.save()
         return HttpResponseRedirect(reverse("cats:details", args=[cat_id]))
 
     def handle_return():
@@ -141,6 +143,10 @@ def handle_cat_rental(request, cat_id=None):
                     button name="cat_{{ rental.cat.id }}
         """
         cat = Cat.objects.get(pk=key)
+
+        # TODO: last() should be changed for this rental's id
+        # TODO: also, it should Rental.valid = False
+
         rental = Rental.objects.filter(user=user, cat=cat).last()
         """
         rental - last rental of given cat, rented by given user
@@ -148,9 +154,8 @@ def handle_cat_rental(request, cat_id=None):
         """
 
         rental.return_date = timezone.now()
+        rental.valid = False
         rental.save()
-        cat.available = True
-        cat.save()
 
         """
         if not - to avoid double saves if user would click a button more than once

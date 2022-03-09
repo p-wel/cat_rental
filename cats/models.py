@@ -41,10 +41,8 @@ class Cat(TimeStamped):
     """
 
     description = models.TextField(default=None, blank=True)
-    available = models.BooleanField(default=True)
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(auto_now=True)
-    user = models.ManyToManyField("auth.User", blank=True)
 
     def __str__(self):
         return f"{self.name} (ID: {self.id})"
@@ -75,6 +73,7 @@ class Rental(models.Model):
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE, related_name="rentals")
     rental_date = models.DateField(null=True, blank=True)
     return_date = models.DateField(null=True, blank=True)
+    valid = models.BooleanField(default=True)
 
     def __str__(self):
         return f"Rental {self.id} ({self.cat.name})"
