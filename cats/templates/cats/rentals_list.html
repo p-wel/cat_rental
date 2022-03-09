@@ -23,7 +23,8 @@
                         {% endif %}
                     </td>
                     <td>
-                        {% if rental.cat.available %}
+{#                    TODO: if (for this user and this cat) exists Rental with date_to in future (or today) then show button#}
+                        {% if False %}
                             - - -
                         {% else %}
                             <button type="submit" name="cat_{{ rental.cat.id }}" class="btn btn-primary">

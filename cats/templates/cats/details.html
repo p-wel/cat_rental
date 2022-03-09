@@ -2,13 +2,6 @@
 {% block title %}Cat details{% endblock %}
 {% block content %}
     <h1>"{{ cat.name }}" details</h1>
-    <div>
-        {% if cat.available %}
-            <div class="alert alert-success" role="alert">Available now!</div>
-        {% else %}
-            <div class="alert alert-danger" role="alert">Rented already. You can rent it for future dates</div>
-        {% endif %}
-    </div>
     <div>Cat name: {{ cat.name }}</div>
     <div>Cat description: {{ cat.description }}</div>
     <div style="text-align: center">

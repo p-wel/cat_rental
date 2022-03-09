@@ -1,6 +1,6 @@
 from django.urls import path
 from cats.views import cats_list, \
-    handle_cat_rental, congrats_mail, IndexView, ExploreListView, CatDetailView, RentalCreateView, AboutView, \
+    handle_cat_rental, congrats_mail, IndexView, CatDetailView, RentalCreateView, AboutView, \
     SpeciesListView, CatsListView, cat_rental_dates, explore_list
 
 app_name = "cats"
