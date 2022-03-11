@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.timezone import now
 
 
+# Unused mixin yet
 class CheckAddDateMixin:
     def added_earlier_than_n_days(self, n=1):
         """Chceck if cat was added earlier than now() - days"""
@@ -20,7 +21,6 @@ class TimeStamped(models.Model, CheckAddDateMixin):
 
 
 class CatQuerySet(models.QuerySet):
-
     def filter_by_dates(self, rental_date, return_date):
         rentals_list = Rental.objects.filter(rental_date__gte=rental_date, return_date__lte=return_date)
         rented_cats_id_list = rentals_list.values_list("cat")

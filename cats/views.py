@@ -1,11 +1,10 @@
-from crispy_forms import helper
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
-from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView
 
 from cats.forms import RentalForm, SearchForm
 from cats.models import Cat, Species, Breed, Rental
@@ -24,7 +23,7 @@ class SpeciesListView(ListView):
     template_name = 'cats/species.html'
 
 
-# CBV Explore
+# CBV
 # class ExploreListView(ListView):
 #     model = Cat
 #     template_name = 'cats/explore_list.html'
@@ -52,15 +51,15 @@ def explore_list(request):
         search_form.helper.form_action = reverse("cats:explore_list")
         return render(request, 'cats/explore_list.html', context)
 
-
-class CatsListView(ListView):
-    model = Cat
-    template_name = 'cats/cats_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['search_form'] = SearchForm()
-        return context
+# CBV
+# class CatsListView(ListView):
+#     model = Cat
+#     template_name = 'cats/cats_list.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['search_form'] = SearchForm()
+#         return context
 
 
 # OLD FUNCTION VIEW
@@ -92,18 +91,20 @@ class CatDetailView(DetailView):
 #     context = {"cat": cat}
 #     return render(request, 'cats/details.html', context)
 
-class RentalCreateView(CreateView):
-    model = Rental
-    fields = ['cat', 'user', 'rental_date', 'return_date']
-    template_name = 'cats/rental_dates.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['rental_form'] = RentalForm()
-        return context
-
-    def get_initial(self):
-        return {'user': self.request.user, 'cat': self.kwargs['cat_id']}
+# CBV
+# class RentalCreateView(CreateView):
+#     model = Rental
+#     fields = ['cat', 'user', 'rental_date', 'return_date']
+#     template_name = 'cats/rental_dates.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['rental_form'] = RentalForm()
+#         return context
+#
+#     def get_initial(self):
+#         return {'user': self.request.user, 'cat': self.kwargs['cat_id']}
 
 
 # OLD FUNCTION VIEW
@@ -118,18 +119,29 @@ def cat_rental_dates(request, cat_id):
 def handle_cat_rental(request, cat_id=None):
     def handle_rent():
         cat = Cat.objects.get(pk=cat_id)
+        rent_from = request.POST.get("date_from")
+        rent_to = request.POST.get("date_to")
+        available_cats = Cat.objects.filter_by_dates(rent_from, rent_to)
 
-        # TODO: if cat is available in given timeframes
-        # if cat.available:
-        Rental.objects.create(
-            user=user,
-            cat=cat,
-            rental_date=request.POST.get("date_from"),
-            return_date=request.POST.get("date_to"),
-            valid=True
-        )
-        cat.save()
-        return HttpResponseRedirect(reverse("cats:details", args=[cat_id]))
+        # if this cat is available in request's timeframes
+        # TODO why "not in" works? It shouldn't. Probably cat_id is not what I'm looking to compare with list of available_cats
+        if cat_id not in available_cats:
+            Rental.objects.create(
+                user=user,
+                cat=cat,
+                rental_date=rent_from,
+                return_date=rent_to,
+                valid=True
+            )
+            cat.save()
+            print("MOŻESZ WYPOŻYCZYĆ")
+            # return HttpResponseRedirect(reverse("cats:details", args=[cat_id]))
+            return congrats_mail(request, cat_id)
+        else:
+            # TODO: show error "Cat not available in given timeframes, please choose other
+            print("NIE MOŻESZ WYPOŻYCZYĆ")
+            return congrats_mail(request, cat_id)
+            # return HttpResponseRedirect(reverse("cats:rental_dates", args=[cat_id]))
 
     def handle_return():
         keys = [
@@ -163,22 +175,25 @@ def handle_cat_rental(request, cat_id=None):
         """
         return HttpResponseRedirect(reverse("cats:rentals_list"))
 
-    def show_rented_cats():
-        rentals = Rental.objects.filter(user=user)
-        return render(request, "cats/rentals_list.html", {"rentals": rentals})
-
     user = request.user
     if request.method == "POST":
         if user.is_authenticated:
             if request.POST.get("rent"):
                 handle_rent()
-                return congrats_mail(request, cat_id)
+                # return congrats_mail(request, cat_id)
             else:
                 handle_return()
     """
     if request.method == "GET":
+    NONE
     """
-    return show_rented_cats()
+    rentals = Rental.objects.filter(user=user)
+    return render(request, "cats/rentals_list.html", {"rentals": rentals})
+
+
+def rentals_history(request):
+    user_rentals = Rental.objects.filter(user=request.user)
+    return render(request, "cats/rentals_list.html", {"rentals": user_rentals})
 
 
 def congrats_mail(request, cat_id):
