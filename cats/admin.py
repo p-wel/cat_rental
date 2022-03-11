@@ -17,8 +17,10 @@ class SpeciesAdmin(admin.ModelAdmin):
 
 @admin.register(Breed)
 class BreedAdmin(admin.ModelAdmin):
-    list_display = ["id", "name"]
+    list_display = ["id", "name", "species"]
     search_fields = ["id", "name"]
+    list_filter = ["species"]
+
 
 
 @admin.register(Rental)
