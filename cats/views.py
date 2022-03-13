@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -35,21 +37,17 @@ class SpeciesListView(ListView):
 
 
 def explore_list(request):
-    cats = Cat.objects.all()
-    search_form = SearchForm()
-    if request.method == "GET":
-        search_form.helper.form_action = reverse("cats:explore_list")
-        context = {'all_cats': cats, 'search_form': search_form}
-        return render(request, 'cats/explore_list.html', context)
-    else:
-        breeds = Breed.objects.all()
-        date_from = request.POST.get("date_from")
-        date_to = request.POST.get("date_to")
-        cats_available = Cat.objects.filter_by_dates(date_from, date_to)
-        context = {'breeds_list': breeds, 'cats_list': cats_available,
-                   'search_form': search_form}
-        search_form.helper.form_action = reverse("cats:explore_list")
-        return render(request, 'cats/explore_list.html', context)
+    cats = None
+    search_form = SearchForm(request.GET or None)
+    if search_form.is_valid():
+        # date_from = request.GET.get("date_from")
+        # date_to = request.GET.get("date_to")
+        date_from = search_form.cleaned_data['date_from']
+        date_to = search_form.cleaned_data['date_to']
+        cats = Cat.objects.filter_by_dates(date_from, date_to)
+    context = {'cats_list': cats, 'search_form': search_form}
+    return render(request, 'cats/explore_list.html', context)
+
 
 # CBV
 # class CatsListView(ListView):
@@ -116,16 +114,22 @@ def cat_rental_dates(request, cat_id):
     return render(request, 'cats/rental_dates.html', context)
 
 
+# def cat_rental_dates(request, cat_id):
+#     cat = Cat.objects.get(pk=cat_id)
+#     rental_form = RentalForm(request.POST)
+#     if rental_form.is_valid():
+#         rental_form.helper.form_action = reverse("cats:rent_the_cat", args=[cat_id])
+#     context = {"cat": cat, "rental_form": rental_form}
+#     return render(request, 'cats/rental_dates.html', context)
+
+
 def handle_cat_rental(request, cat_id=None):
     def handle_rent():
-        cat = Cat.objects.get(pk=cat_id)
         rent_from = request.POST.get("date_from")
         rent_to = request.POST.get("date_to")
-        available_cats = Cat.objects.filter_by_dates(rent_from, rent_to)
 
-        # if this cat is available in request's timeframes
-        # TODO why "not in" works? It shouldn't. Probably cat_id is not what I'm looking to compare with list of available_cats
-        if cat_id not in available_cats:
+        try:
+            cat = Cat.objects.filter_by_dates(rent_from, rent_to).get(pk=cat_id)
             Rental.objects.create(
                 user=user,
                 cat=cat,
@@ -134,14 +138,12 @@ def handle_cat_rental(request, cat_id=None):
                 valid=True
             )
             cat.save()
-            print("MOŻESZ WYPOŻYCZYĆ")
-            # return HttpResponseRedirect(reverse("cats:details", args=[cat_id]))
+            print("WOLNY")
             return congrats_mail(request, cat_id)
-        else:
-            # TODO: show error "Cat not available in given timeframes, please choose other
-            print("NIE MOŻESZ WYPOŻYCZYĆ")
-            return congrats_mail(request, cat_id)
-            # return HttpResponseRedirect(reverse("cats:rental_dates", args=[cat_id]))
+        except Cat.DoesNotExist:
+            # TODO: Show error msg:
+            print('Cat not available in given timeframes')
+            return cat_rental_dates(request, cat_id)
 
     def handle_return():
         keys = [
@@ -152,12 +154,12 @@ def handle_cat_rental(request, cat_id=None):
         """
         keys - taking out proper cat's id from submit button in:
                 /rentals_list.html
-                    button name="cat_{{ rental.cat.id }}
+                    button name="cat_{{ rental.cat.id }}"
         """
         cat = Cat.objects.get(pk=key)
 
         # TODO: last() should be changed for this rental's id
-        # TODO: also, it should Rental.valid = False
+        # TODO: also, it should make Rental.valid = False
 
         rental = Rental.objects.filter(user=user, cat=cat).last()
         """
@@ -179,10 +181,9 @@ def handle_cat_rental(request, cat_id=None):
     if request.method == "POST":
         if user.is_authenticated:
             if request.POST.get("rent"):
-                handle_rent()
-                # return congrats_mail(request, cat_id)
+                return handle_rent()
             else:
-                handle_return()
+                return handle_return()
     """
     if request.method == "GET":
     NONE
