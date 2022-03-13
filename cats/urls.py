@@ -17,3 +17,6 @@ urlpatterns = [
     path('cat/<int:cat_id>/rent/', handle_cat_rental, name="rent_the_cat"),
     path('cat/rentals', rentals_history, name="rentals_list"),
 ]
+
+
+# error handling - zamiast 404, 500 itp wyświetlić mojego html

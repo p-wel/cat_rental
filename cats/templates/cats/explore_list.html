@@ -4,7 +4,11 @@
 {% block content %}
     <h1>Explore all Cats</h1>
     <div style="width: 200px; text-align: center; margin: auto">
-        {% crispy search_form %}
+        <form method="get">
+            {{ search_form }}
+            <button type="submit">Search</button>
+        </form>
+</form>
     </div>
     <hr class="rounded">
     <table class="table table-hover">

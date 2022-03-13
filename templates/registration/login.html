@@ -4,9 +4,11 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <form method="POST" class="form-group">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-success">Login</button>
-    </form>
+    <div style="width: 500px; text-align: center; margin: auto">
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success">Login</button>
+        </form>
+    </div>
 {% endblock %}

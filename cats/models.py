@@ -1,3 +1,4 @@
+import datetime
 from datetime import timedelta
 
 from django.db import models
@@ -74,6 +75,10 @@ class Rental(models.Model):
     rental_date = models.DateField(null=True, blank=True)
     return_date = models.DateField(null=True, blank=True)
     valid = models.BooleanField(default=True)
+
+    # metoda clean na data od, data do
+    # nią robię walidację poprawnych dat
+    # jeśli daty są niepoprawne, to zwróć błąd
 
     def __str__(self):
         return f"Rental {self.id} ({self.cat.name})"
