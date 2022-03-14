@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Rentals list{% endblock %}
+{% block content %}
+    <h1>Your rentals history</h1>
+    <table class="table table-stripped">
+        <thead>
+        <th>Cat's name</th>
+        <th>Rental date</th>
+        <th>Return date</th>
+        <th>Cancel rental</th>
+        </thead>
+        <tbody>
+        {% for rental in user_rentals %}
+            <form action="{% url "cats:rentals_history" %}" method="post">
+                {% csrf_token %}
+                <tr>
+                    <td>{{ rental.cat.name }}</td>
+                    <td>{{ rental.rental_date }}</td>
+                    <td>{{ rental.return_date }}</td>
+                    <td>
+                        {% if rental.return_date >= today %}
+                            <button
+                                    type="submit"
+
+                                    {#TODO ACTION: HANDLE_RETURN THIS RENTAL'S CAT#}
+                                    action="{% url "cats:handle_cat_rental" rental.id %}"
+{#                                    TODO: how #}
+                                    name=""
+                                    class="btn btn-primary">
+                                Cancel now
+                            </button>
+                        {% else %}
+                            - - -
+                        {% endif %}
+                    </td>
+                </tr>
+            </form>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
