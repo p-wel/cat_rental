@@ -12,11 +12,11 @@
                 </div>
             </label>
         </div>
-        {#        <form method="post">#}
-        {#            {% csrf_token %}#}
-        {#            {{ rental_form }}#}
-        {#            <button type="submit"> Rent!</button>#}
-        {#        </form>#}
+        {#                <form action="{% url "cats:rent_the_cat" cat.id %}" method="post">#}
+        {#                    {% csrf_token %}#}
+        {#                    {{ rental_form }}#}
+        {#                    <button type="submit"> Rent!</button>#}
+        {#                </form>#}
         {% crispy rental_form %}
     </div>
 {% endblock %}
