@@ -14,6 +14,7 @@
     <!-- Customs -->
     <title>{% block title %} {% endblock %}</title>
     <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     {% block styles %} {% endblock %}
 </head>
 
@@ -36,17 +37,21 @@
                     </a></li>
                 </ul>
 
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" class="form-control form-control-dark" placeholder="Search..."
-                           aria-label="Search" control-id="ControlID-1">
-                </form>
+{#                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">#}
+{#                    <input type="search" class="form-control form-control-dark" placeholder="Search..."#}
+{#                           aria-label="Search" control-id="ControlID-1">#}
+{#                </form>#}
 
                 <div class="text-end">
                     {% if user.is_authenticated %}
-                        <a type="button" class="btn btn-outline-light me-2" href="{% url "logout" %}">Logout
+                        <a type="button" class="btn btn-outline-light me-2" href="{% url "logout" %}">
+                            <i class="bi-person-fill"></i>
+                            Logout
                         </a>
                     {% else %}
-                        <a type="button" class="btn btn-outline-light me-2" href="{% url "login" %}">Login
+                        <a type="button" class="btn btn-outline-light me-2" href="{% url "login" %}">
+                            <i class="bi-person"></i>
+                            Login
                         </a>
                         <a type="button" class="btn btn-warning" href="{% url "register:register" %}">Sign up
                         </a>
@@ -81,6 +86,7 @@
     body {
         background-color: beige;
     }
+
     h1 {
         color: darkblue;
         text-align: center;

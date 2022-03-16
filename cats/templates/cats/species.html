@@ -9,7 +9,7 @@
         <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Choose the Species</button>
         <ul class="dropdown-menu">
             {% for species in species_list %}
-                <li><a class="dropdown-item" href="{% url 'cats:list' species.id %}">{{ species.name }}</a></li>
+                <li><a class="dropdown-item" href="{% url 'cats:cats_list' species.id %}">{{ species.name }}</a></li>
             {% endfor %}
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'cats:explore_list' %}">Explore all cats</a>
