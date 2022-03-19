@@ -48,27 +48,6 @@ class RentalForm(forms.Form):
         return cleaned_data
 
 
-# Change RentalForm(forms.Form) into ModelForm. Add 'rental_date' and 'return_date' validation
-# class RentalForm(ModelForm):
-#     class Meta:
-#         model = Rental
-#         fields = ['rental_date', 'return_date']
-#         widgets = {
-#             'rental_date': forms.DateInput(
-#                 attrs={
-#                     'class': 'datepicker',
-#                     'type': 'date',
-#                     'placeholder': 'DD-MM-YYYY'
-#                 }),
-#             'return_date': forms.DateInput(
-#                 attrs={
-#                     'class': 'datepicker',
-#                     'type': 'date',
-#                     'placeholder': 'DD-MM-YYYY'
-#                 }),
-#         }
-
-
 class SearchForm(forms.Form):
     date_from = forms.DateField(
         widget=forms.DateInput(

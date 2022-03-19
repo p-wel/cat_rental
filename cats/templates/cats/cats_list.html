@@ -3,30 +3,36 @@
 {% block title %}Cats list{% endblock %}
 {% block content %}
     <h1>Cats</h1>
-    <div style="width: 200px; text-align: center; margin: auto">
-        <form method="get">
-            {{ search_form }}
-            <button type="submit">Search</button>
-        </form>
-    </div>
-    <hr class="rounded">
-    <table class="table table-hover">
-        <thead>
-        <td>Name</td>
-        <td>Breed</td>
-        <td>Last rental</td>
-        <td>Last return</td>
-        </thead>
-        {% for cat in cats_list %}
-            {% if cat.breed.species_id == species_id %}
-                <tr>
-                    <td><a class="btn btn-outline-primary" href="{% url 'cats:details' cat.id %}"
-                           role="button">{{ cat.name }}</a></td>
-                    <td>{{ cat.breed }}</td>
-                    <td>{{ cat.rentals.last.rental_date }}</td>
-                    <td>{{ cat.rentals.last.return_date }}</td>
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
+    {% if cats_list == None %}
+        <div style="text-align: center; background-color:orange ;margin: auto">
+            Search cats available in given dates
+        </div>
+        <div style="width: 200px; text-align: center; margin: auto">
+            <form method="get">
+                {{ search_form }}
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    {% else %}
+        <hr class="rounded">
+        <table class="table table-hover">
+            <thead>
+            <td>Name</td>
+            <td>Breed</td>
+            <td>Last rental</td>
+            <td>Last return</td>
+            </thead>
+            {% for cat in cats_list %}
+                {% if cat.breed.species_id == species_id %}
+                    <tr>
+                        <td><a class="btn btn-outline-primary" href="{% url 'cats:details' cat.id %}"
+                               role="button">{{ cat.name }}</a></td>
+                        <td>{{ cat.breed }}</td>
+                        <td>{{ cat.rentals.last.rental_date }}</td>
+                        <td>{{ cat.rentals.last.return_date }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    {% endif %}
 {% endblock %}
