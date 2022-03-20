@@ -9,3 +9,5 @@ urlpatterns = [
                   path('', include('cats.urls')),
                   path('', include('register.urls')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+admin.site.site_header = 'Django administration - Cat Rental'

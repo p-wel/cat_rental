@@ -48,7 +48,6 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(models.Model, cats.models.CheckAddDateMixin),
         ),
         migrations.AddField(
             model_name='breed',

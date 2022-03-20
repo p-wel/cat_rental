@@ -1,18 +1,7 @@
-from datetime import timedelta
-
 from django.db import models
-from django.utils.timezone import now
 
 
-# Unused mixin yet
-class CheckAddDateMixin:
-    def added_earlier_than_n_days(self, n=1):
-        """Chceck if cat was added earlier than now() - days"""
-        delta = timedelta(days=n)
-        return now() - self.created > delta
-
-
-class TimeStamped(models.Model, CheckAddDateMixin):
+class TimeStamped(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
