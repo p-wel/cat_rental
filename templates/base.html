@@ -15,6 +15,7 @@
     <title>{% block title %} {% endblock %}</title>
     <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     {% block styles %} {% endblock %}
 </head>
 
@@ -37,10 +38,10 @@
                     </a></li>
                 </ul>
 
-{#                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">#}
-{#                    <input type="search" class="form-control form-control-dark" placeholder="Search..."#}
-{#                           aria-label="Search" control-id="ControlID-1">#}
-{#                </form>#}
+                {#                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">#}
+                {#                    <input type="search" class="form-control form-control-dark" placeholder="Search..."#}
+                {#                           aria-label="Search" control-id="ControlID-1">#}
+                {#                </form>#}
 
                 <div class="text-end">
                     {% if user.is_authenticated %}

@@ -2,7 +2,6 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
-from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -42,6 +41,13 @@ def cats_list(request, species_id):
     cats = None
     search_form = SearchForm(request.GET or None)
     breeds = Breed.objects.all()
+
+    try:
+        Species.objects.filter(id=species_id).get()
+    except Species.DoesNotExist:
+        species_exists = False
+        context = {'species_exists': species_exists}
+        return render(request, 'cats/cats_list.html', context)
 
     if search_form.is_valid():
         date_from = search_form.cleaned_data['date_from']

@@ -17,4 +17,3 @@ urlpatterns = [
     path('cat/<int:cat_id>/rent/', handle_rent, name="handle_rent"),
     path('cat/rentals', rentals_history, name="rentals_history"),
 ]
-
