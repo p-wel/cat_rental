@@ -7,8 +7,6 @@
         <th>Cat's name</th>
         <th><a href="?order_by=Rental_date">Rental date</a></th>
         <th><a href="?order_by=Return_date">Return date</a></th>
-{#        <th>Cancel rental</th>#}
-{#        <th>Valid</th>#}
         <th></th>
         </thead>
         <tbody>
@@ -19,26 +17,6 @@
                     <td>{{ rental.cat.name }}</td>
                     <td>{{ rental.rental_date }}</td>
                     <td>{{ rental.return_date }}</td>
-{#                    <td>#}
-{#                        {% if rental.return_date >= today %}#}
-{#                            <button#}
-{#                                    type="submit"#}
-{#                                    action="{% url "cats:handle_cat_rental" rental.id %}"#}
-{#                                    name=""#}
-{#                                    class="btn btn-primary">#}
-{#                                Cancel now#}
-{#                            </button>#}
-{#                        {% else %}#}
-{#                            - - -#}
-{#                        {% endif %}#}
-{#                    </td>#}
-{#                    <td>#}
-{#                        {% if rental.valid %}#}
-{#                            <i class="bi-check-lg text-primary"></i>#}
-{#                        {% else %}#}
-{#                            <i class="bi-x-lg text-danger"></i>#}
-{#                        {% endif %}#}
-{#                    </td>#}
                 </tr>
             </form>
         {% endfor %}

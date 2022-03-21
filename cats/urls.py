@@ -1,9 +1,13 @@
+"""
+Urls for cats app
+"""
+
 from django.urls import path
 
 from cats.views import cats_list, handle_rent, congrats_mail, IndexView, AboutView, \
     SpeciesListView, rental_dates, explore_list, rentals_history, CatDetailView
 
-app_name = "cats"
+APP_NAME = "cats"
 
 urlpatterns = [
     path('', IndexView.as_view(), name="index"),
