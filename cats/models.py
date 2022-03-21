@@ -1,11 +1,14 @@
 """
 Models used in app
 """
+import datetime
+
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
 class TimeStamped(models.Model):
-    """TimeStamp using when creating new Cat object"""
+    """TimeStamp using when creating new object"""
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
@@ -16,8 +19,9 @@ class TimeStamped(models.Model):
 class CatQuerySet(models.QuerySet):
     def filter_by_dates(self, rental_date, return_date):
         """
-        Method in QuerySet to filter out rented cats.
-        Returns a list of cats available in given dates.
+        Own method in QuerySet to filter out cats rented in given dates.
+
+        Returns a list of cats available between given dates.
         """
         rentals_list = Rental.objects.filter(
             rental_date__gte=rental_date,
@@ -32,18 +36,11 @@ class Cat(TimeStamped):
     """Basic class for Cat objects"""
     name = models.CharField(max_length=50)
     breed = models.ForeignKey('cats.Breed', on_delete=models.CASCADE)
-    objects = CatQuerySet.as_manager()
-
-    """
-    <Species: Breeds>
-    - House cat: American Curl, Sphinx, Ragamuffin, Siberian Cat, Persian Cat
-    - Farm cat: Sheep's Cat, Barn Cat
-    - Feral cat: Bengal Tiger, Lion, Cheetah, Jaguar, Leopard
-    """
-
     description = models.TextField(default=None, blank=True)
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(auto_now=True)
+
+    objects = CatQuerySet.as_manager()
 
     def __str__(self):
         return f"{self.name} (ID: {self.id})"
@@ -78,6 +75,17 @@ class Rental(models.Model):
     rental_date = models.DateField(null=True, blank=True)
     return_date = models.DateField(null=True, blank=True)
     valid = models.BooleanField(default=True)
+
+    def clean(self):
+        super().clean()
+        if self.rental_date < datetime.date.today():
+            raise ValidationError("Cannot pick date from the past")
+        if self.rental_date > self.return_date:
+            raise ValidationError("'Return date' must be further than 'return from'")
+
+        # Check if cat isn't already rented in given dates
+        if not Cat.objects.filter_by_dates(self.rental_date, self.return_date).filter(pk=self.cat.pk).exists():
+            raise ValidationError("Cat isn't available in given timeframes")
 
     def __str__(self):
         return f"Rental {self.id} ({self.cat.name})"

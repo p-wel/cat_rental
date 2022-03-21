@@ -2,9 +2,9 @@
 {% load crispy_forms_tags %}
 {% block title %}Cats list{% endblock %}
 {% block content %}
-    <h1>Cats</h1>
+    <h1>{{ species.name }}</h1>
 
-    {% if species_exists == False %}
+    {% if not species %}
         <div style="text-align: center; background-color:orange; margin: auto">
         No such species id
         </div>
