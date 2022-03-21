@@ -1,3 +1,7 @@
+"""
+Views used in cat app
+"""
+
 import datetime
 
 from django.contrib.auth.decorators import login_required
@@ -25,6 +29,9 @@ class SpeciesListView(ListView):
 
 
 def explore_list(request):
+    """
+    View to explore Cats of every Species
+    """
     cats = None
     search_form = SearchForm(request.GET or None)
 
@@ -81,19 +88,19 @@ def handle_rent(request, cat_id=None):
 
     try:
         cat = Cat.objects.filter_by_dates(rent_from, rent_to).get(pk=cat_id)
-        Rental.objects.create(
-            user=user,
-            cat=cat,
-            rental_date=rent_from,
-            return_date=rent_to,
-            valid=True
-        )
-        cat.save()
-        return congrats_mail(request, cat_id)
-
     except Cat.DoesNotExist:
         available = False
         return rental_dates(request, cat_id, available)
+
+    Rental.objects.create(
+        user=user,
+        cat=cat,
+        rental_date=rent_from,
+        return_date=rent_to,
+        valid=True
+    )
+    cat.save()
+    return congrats_mail(request, cat_id)
 
 
 @login_required

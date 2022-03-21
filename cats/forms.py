@@ -1,3 +1,7 @@
+"""
+Creating forms to use in app
+"""
+
 import datetime
 
 from django import forms
@@ -6,6 +10,7 @@ from crispy_forms.layout import Submit, Layout, Row, Column
 
 
 class RentalForm(forms.Form):
+    """Rental form with calendar widget"""
     date_from = forms.DateField(
         widget=forms.DateInput(
             attrs={
@@ -37,6 +42,7 @@ class RentalForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(RentalForm, self).clean()
+
         date_from = cleaned_data.get("date_from")
         date_to = cleaned_data.get("date_to")
 
@@ -49,6 +55,7 @@ class RentalForm(forms.Form):
 
 
 class SearchForm(forms.Form):
+    """Search form with calendar widget"""
     date_from = forms.DateField(
         widget=forms.DateInput(
             attrs={
