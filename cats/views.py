@@ -38,7 +38,10 @@ def explore_list(request):
     page_obj = None
     search_form = SearchForm(request.GET or None)
 
-    # If form is valid, show list. If not, SearchForm will show proper hint
+    """
+    If form is valid, show list.
+    If form is not valid, SearchForm will show proper hint
+    """
     if search_form.is_valid():
         date_from = search_form.cleaned_data['date_from']
         date_to = search_form.cleaned_data['date_to']
@@ -55,6 +58,7 @@ def explore_list(request):
 def cats_list(request, species_id):
     """Lists Cats from only one Species"""
     cats = None
+    page_obj = None
     search_form = SearchForm(request.GET or None)
     breeds = Breed.objects.all()
 
@@ -68,10 +72,21 @@ def cats_list(request, species_id):
     if search_form.is_valid():
         date_from = search_form.cleaned_data['date_from']
         date_to = search_form.cleaned_data['date_to']
-        cats = Cat.objects.filter_by_dates(date_from, date_to)
-    context = {'cats_list': cats, 'breeds_list': breeds, 'species_id': species_id, 'search_form': search_form,
-               'species': species}
+        species_cats = Cat.objects.filter(breed__species=species_id)
+        cats = species_cats.filter_by_dates(date_from, date_to)
 
+        paginator = Paginator(cats, 5)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+    context = {
+        'cats_list': cats,
+        'breeds_list': breeds,
+        'species_id': species_id,
+        'search_form': search_form,
+        'species': species,
+        'page_obj': page_obj
+    }
     return render(request, 'cats/cats_list.html', context)
 
 
@@ -111,7 +126,17 @@ def rentals_history(request):
     user_rentals = Rental.objects.filter(user=request.user).order_by('-rental_date')
     today = datetime.date.today()
 
-    return render(request, "cats/rentals_history.html", {'user_rentals': user_rentals, 'today': today})
+    paginator = Paginator(user_rentals, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'user_rentals': user_rentals,
+        'today': today,
+        'page_obj': page_obj
+    }
+
+    return render(request, "cats/rentals_history.html", context)
 
 
 @login_required

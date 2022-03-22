@@ -5,21 +5,45 @@
     <table class="table table-stripped">
         <thead>
         <th>Cat's name</th>
-        <th><a href="?order_by=Rental_date">Rental date</a></th>
-        <th><a href="?order_by=Return_date">Return date</a></th>
+        <th>Rental date</th>
+        <th>Return date</th>
         <th></th>
         </thead>
         <tbody>
-        {% for rental in user_rentals %}
-            <form action="{% url "cats:rentals_history" %}" method="post">
-                {% csrf_token %}
-                <tr>
-                    <td>{{ rental.cat.name }}</td>
-                    <td>{{ rental.rental_date }}</td>
-                    <td>{{ rental.return_date }}</td>
-                </tr>
-            </form>
+        {% for rental in page_obj %}
+            <tr>
+                <td>{{ rental.cat.name }}</td>
+                <td>{{ rental.rental_date }}</td>
+                <td>{{ rental.return_date }}</td>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
+
+    <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1&date_from={{ search_form.data.date_from }}&date_to={{ search_form.data.date_to }}">
+                            First
+                        </a>
+                        <a href="?page={{ page_obj.previous_page_number }}&date_from={{ search_form.data.date_from }}&date_to={{ search_form.data.date_to }}">
+                            Previous
+                        </a>
+                    {% endif %}
+
+                    <span class="current">
+                        {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}&date_from={{ search_form.data.date_from }}&date_to={{ search_form.data.date_to }}">
+                            Next
+                        </a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}&date_from={{ search_form.data.date_from }}&date_to={{ search_form.data.date_to }}">
+                            Last
+                        </a>
+                    {% endif %}
+                </span>
+    </div>
+
 {% endblock %}
