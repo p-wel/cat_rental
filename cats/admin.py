@@ -6,6 +6,31 @@ from django.contrib import admin
 from .models import Cat, Species, Breed, Rental
 
 
+@admin.action(description='Status 0: no status yet')
+def status_no_status(modeladmin, request, queryset):
+    queryset.update(status=0)
+
+
+@admin.action(description='Status 1: Pending')
+def status_pending(modeladmin, request, queryset):
+    queryset.update(status=1)
+
+
+@admin.action(description='Status 2: Actual')
+def status_actual(modeladmin, request, queryset):
+    queryset.update(status=2)
+
+
+@admin.action(description='Status 3: Finished')
+def status_finished(modeladmin, request, queryset):
+    queryset.update(status=3)
+
+
+@admin.action(description='Status 4: Cancelled')
+def status_cancelled(modeladmin, request, queryset):
+    queryset.update(status=4)
+
+
 @admin.register(Cat)
 class CatAdmin(admin.ModelAdmin):
     """Register admin for Cats"""
@@ -31,5 +56,7 @@ class BreedAdmin(admin.ModelAdmin):
 @admin.register(Rental)
 class RentalAdmin(admin.ModelAdmin):
     """Register admin for Rentals"""
-    list_display = ["id", "user", "cat", "rental_date", "return_date", "valid"]
-    list_filter = ["rental_date", "return_date", "valid"]
+    list_display = ["id", "user", "cat", "rental_date", "return_date", "status"]
+    list_filter = ["rental_date", "return_date"]
+    search_fields = ["id", "cat__name", "user__username"]
+    actions = [status_no_status, status_pending, status_actual, status_finished, status_cancelled]
