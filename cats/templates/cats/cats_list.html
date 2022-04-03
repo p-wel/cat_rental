@@ -14,7 +14,7 @@
         <div style="width: 200px; text-align: center; margin: auto">
             <form method="get">
                 {{ search_form }}
-                <button type="submit">Search</button>
+                    <button type="submit">Search</button>
             </form>
         </div>
     {% else %}
@@ -27,13 +27,13 @@
             <td>Last return</td>
             </thead>
             {% for cat in page_obj %}
-                    <tr>
-                        <td><a class="btn btn-outline-primary" href="{% url 'cats:details' cat.id %}"
-                               role="button">{{ cat.name }}</a></td>
-                        <td>{{ cat.breed }}</td>
-                        <td>{{ cat.rentals.last.rental_date }}</td>
-                        <td>{{ cat.rentals.last.return_date }}</td>
-                    </tr>
+                <tr>
+                    <td><a class="btn btn-outline-primary" href="{% url 'cats:details' cat.id %}"
+                           role="button">{{ cat.name }}</a></td>
+                    <td>{{ cat.breed }}</td>
+                    <td>{{ cat.rentals.last.rental_date }}</td>
+                    <td>{{ cat.rentals.last.return_date }}</td>
+                </tr>
             {% endfor %}
         </table>
 
@@ -61,7 +61,7 @@
                         </a>
                     {% endif %}
                 </span>
-            </div>
+        </div>
 
 
     {% endif %}

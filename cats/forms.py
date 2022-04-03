@@ -52,7 +52,8 @@ class SearchForm(forms.Form):
         widget=forms.DateInput(
             attrs={
                 'class': 'datepicker',
-                'type': 'date'
+                'type': 'date',
+                'placeholder': 'DD-MM-YYYY'
             }
         )
     )
