@@ -1,4 +1,0 @@
-django==3.2.7
-django-crispy-forms
-django-widget-tweaks
-psycopg2
