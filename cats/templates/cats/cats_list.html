@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Cats list{% endblock %}
+{% block content %}
+    <h1>{{ species.name }}</h1>
+    {% if not species %}
+        <div style="text-align: center; background-color:orange; margin: auto">
+            No such species id
+        </div>
+    {% elif cats_list == None %}
+        <div style="text-align: center; background-color:orange; margin: auto">
+            Search cats available in given dates
+        </div>
+        <div style="width: 200px; text-align: center; margin: auto">
+            <form method="get">
+                {{ search_form }}
+                    <button type="submit">Search</button>
+            </form>
+        </div>
+    {% else %}
+        <hr class="rounded">
+        <table class="table table-hover">
+            <thead>
+            <td>Name</td>
+            <td>Breed</td>
+            <td>Last rental</td>
+            <td>Last return</td>
+            </thead>
+            {% for cat in page_obj %}
+                <tr>
+                    <td><a class="btn btn-outline-primary" href="{% url 'cats:details' cat.id %}"
+                           role="button">{{ cat.name }}</a></td>
+                    <td>{{ cat.breed }}</td>
+                    <td>{{ cat.rentals.last.rental_date }}</td>
+                    <td>{{ cat.rentals.last.return_date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1&date_from={{ search_form.data.date_from }}&date_to={{ search_form.data.date_to }}">
+                            First
+                        </a>
+                        <a href="?page={{ page_obj.previous_page_number }}&date_from={{ search_form.data.date_from }}&date_to={{ search_form.data.date_to }}">
+                            Previous
+                        </a>
+                    {% endif %}
+
+                    <span class="current">
+                        {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}&date_from={{ search_form.data.date_from }}&date_to={{ search_form.data.date_to }}">
+                            Next
+                        </a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}&date_from={{ search_form.data.date_from }}&date_to={{ search_form.data.date_to }}">
+                            Last
+                        </a>
+                    {% endif %}
+                </span>
+        </div>
+
+
+    {% endif %}
+{% endblock %}
