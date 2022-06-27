@@ -47,7 +47,7 @@ def explore_list(request):
         date_to = search_form.cleaned_data['date_to']
         cats = Cat.objects.filter_by_dates(date_from, date_to)
 
-        paginator = Paginator(cats, 5)
+        paginator = Paginator(cats, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
@@ -75,7 +75,7 @@ def cats_list(request, species_id):
         species_cats = Cat.objects.filter(breed__species=species_id)
         cats = species_cats.filter_by_dates(date_from, date_to)
 
-        paginator = Paginator(cats, 5)
+        paginator = Paginator(cats, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
