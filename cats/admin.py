@@ -6,28 +6,28 @@ from django.contrib import admin
 from .models import Cat, Species, Breed, Rental
 
 
-@admin.action(description='Status 0: no status yet')
-def update_status_to_no_status(request, queryset):
+@admin.action(description='Set status: Not activate (draft)')
+def update_status_to_no_status(self, request, queryset):
     queryset.update(status=0)
 
 
-@admin.action(description='Status 1: Pending')
-def update_status_to_pending(request, queryset):
+@admin.action(description='Set status: Pending (@)')
+def update_status_to_pending(self, request, queryset):
     queryset.update(status=1)
 
 
-@admin.action(description='Status 2: Actual')
-def update_status_to_actual(request, queryset):
+@admin.action(description='Set status: Active')
+def update_status_to_actual(self, request, queryset):
     queryset.update(status=2)
 
 
-@admin.action(description='Status 3: Finished')
-def update_status_to_finished(request, queryset):
+@admin.action(description='Set status: Finished')
+def update_status_to_finished(self, request, queryset):
     queryset.update(status=3)
 
 
-@admin.action(description='Status 4: Cancelled')
-def update_status_to_cancelled(request, queryset):
+@admin.action(description='Set status: Cancelled')
+def update_status_to_cancelled(self, request, queryset):
     queryset.update(status=4)
 
 
