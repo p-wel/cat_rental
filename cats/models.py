@@ -6,14 +6,6 @@ import datetime
 from django.core.exceptions import ValidationError
 from django.db import models
 
-STATUS_CHOICES = [
-    ('0', 'No status'),
-    ('1', 'Pending'),
-    ('2', 'Actual'),
-    ('3', 'Finished'),
-    ('4', 'Cancelled'),
-]
-
 
 class TimeStamped(models.Model):
     """TimeStamp using when creating new object"""
@@ -78,11 +70,27 @@ class Species(models.Model):
 
 class Rental(models.Model):
     """Basic class for Rental objects"""
+    NOT_ACTIVE = 0
+    PENDING = 1
+    ACTIVE = 2
+    FINISHED = 3
+    CANCELLED = 4
+    STATUS = (
+        (NOT_ACTIVE, 'Not activate (draft)'),
+        (PENDING, 'Pending (@)'),
+        (ACTIVE, 'Active'),
+        (FINISHED, 'Finished'),
+        (CANCELLED, 'Cancelled'),
+    )
+
     cat = models.ForeignKey("Cat", on_delete=models.CASCADE, related_name="rentals")
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE, related_name="rentals")
     rental_date = models.DateField(null=True, blank=True)
     return_date = models.DateField(null=True, blank=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='0')
+    status = models.PositiveSmallIntegerField(
+        choices=STATUS,
+        default=NOT_ACTIVE,
+    )
 
     def clean(self):
         super().clean()
