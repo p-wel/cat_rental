@@ -17,19 +17,18 @@ class TimeStamped(models.Model):
 
 
 class CatQuerySet(models.QuerySet):
-    def filter_by_dates(self, rental_date, return_date):
+    def filter_available_between_dates(self, rental_date, return_date):
         """
-        Own method in QuerySet to filter out cats rented in given dates.
+        Method in Cat QuerySet to filter out rented cats.
 
         Returns a list of cats available between given dates.
         """
-        rentals_list = Rental.objects.filter(
+
+        rentals_between_dates = Rental.objects.filter(
             rental_date__gte=rental_date,
             return_date__lte=return_date
         )
-        rented_cats_id_list = rentals_list.values_list("cat")
-        available_cats = self.exclude(id__in=rented_cats_id_list)
-        return available_cats
+        return self.exclude(id__in=rentals_between_dates.values_list('cat'))
 
 
 class Cat(TimeStamped):
@@ -37,13 +36,11 @@ class Cat(TimeStamped):
     name = models.CharField(max_length=50)
     breed = models.ForeignKey('cats.Breed', on_delete=models.CASCADE)
     description = models.TextField(default=None, blank=True)
-    creation_date = models.DateTimeField(auto_now_add=True)
-    modification_date = models.DateTimeField(auto_now=True)
 
     objects = CatQuerySet.as_manager()
 
     def __str__(self):
-        return f"{self.name} (ID: {self.id})"
+        return f'{self.name} (ID: {self.id})'
 
 
 class Breed(models.Model):
@@ -53,7 +50,7 @@ class Breed(models.Model):
     species = models.ForeignKey('cats.Species', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.name}"
+        return f'{self.name}'
 
 
 class Species(models.Model):
@@ -62,10 +59,10 @@ class Species(models.Model):
     description = models.TextField(default=None, blank=True)
 
     class Meta:
-        verbose_name_plural = "Species"
+        verbose_name_plural = 'Species'
 
     def __str__(self):
-        return f"{self.name}"
+        return f'{self.name}'
 
 
 class Rental(models.Model):
@@ -83,8 +80,8 @@ class Rental(models.Model):
         (CANCELLED, 'Cancelled'),
     )
 
-    cat = models.ForeignKey("Cat", on_delete=models.CASCADE, related_name="rentals")
-    user = models.ForeignKey("auth.User", on_delete=models.CASCADE, related_name="rentals")
+    cat = models.ForeignKey('Cat', on_delete=models.CASCADE, related_name='rentals')
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='rentals')
     rental_date = models.DateField(null=True, blank=True)
     return_date = models.DateField(null=True, blank=True)
     status = models.PositiveSmallIntegerField(
@@ -95,13 +92,15 @@ class Rental(models.Model):
     def clean(self):
         super().clean()
         if self.rental_date < datetime.date.today():
-            raise ValidationError("Cannot pick date from the past")
+            raise ValidationError('Cannot pick date from the past')
         if self.rental_date > self.return_date:
-            raise ValidationError("'Return date' must be further than 'return from'")
+            raise ValidationError('"Return date" must be further than "return from"')
 
         # Check if cat isn't already rented in given dates
-        if not Cat.objects.filter_by_dates(self.rental_date, self.return_date).filter(pk=self.cat.pk).exists():
-            raise ValidationError("Cat isn't available in given timeframes")
+        if not Cat.objects\
+                .filter_available_between_dates(self.rental_date, self.return_date)\
+                .filter(pk=self.cat.pk).exists():
+            raise ValidationError('Cat is not available in given timeframes')
 
     def __str__(self):
-        return f"Rental {self.id} ({self.cat.name})"
+        return f'Rental {self.id} ({self.cat.name})'

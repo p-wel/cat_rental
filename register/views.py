@@ -5,11 +5,11 @@ from .forms import RegisterForm
 
 
 def register(response):
-    if response.method == "POST":
+    if response.method == 'POST':
         form = RegisterForm(response.POST)
         if form.is_valid():
             form.save()
         return redirect(reverse('cats:index'))
     else:
         form = RegisterForm()
-    return render(response, "accounts/register.html", {"form": form})
+    return render(response, 'accounts/register.html', {'form': form})

@@ -74,15 +74,15 @@ class SearchForm(forms.Form):
     def clean(self):
         """Cleans the form"""
         cleaned_data = super(SearchForm, self).clean()
-        date_from = cleaned_data.get("date_from")
-        date_to = cleaned_data.get("date_to")
+        date_from = cleaned_data.get('date_from')
+        date_to = cleaned_data.get('date_to')
 
         """Raise error if "date_from" is from the past"""
         if date_from < datetime.date.today():
-            raise forms.ValidationError("Cannot pick date from the past")
+            raise forms.ValidationError('Cannot pick date from the past')
 
         """Raise error if dates are picked backwards"""
         if date_from > date_to:
-            raise forms.ValidationError("'Date to' must be further than 'date from'")
+            raise forms.ValidationError('"Date to" must be further than "date from"')
 
         return cleaned_data
