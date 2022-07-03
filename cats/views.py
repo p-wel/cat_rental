@@ -45,7 +45,7 @@ def explore_list(request):
     if search_form.is_valid():
         date_from = search_form.cleaned_data['date_from']
         date_to = search_form.cleaned_data['date_to']
-        cats = Cat.objects.filter_by_dates(date_from, date_to)
+        cats = Cat.objects.filter_available_between_dates(date_from, date_to)
 
         paginator = Paginator(cats, 10)
         page_number = request.GET.get('page')
@@ -73,7 +73,7 @@ def cats_list(request, species_id):
         date_from = search_form.cleaned_data['date_from']
         date_to = search_form.cleaned_data['date_to']
         species_cats = Cat.objects.filter(breed__species=species_id)
-        cats = species_cats.filter_by_dates(date_from, date_to)
+        cats = species_cats.filter_available_between_dates(date_from, date_to)
 
         paginator = Paginator(cats, 10)
         page_number = request.GET.get('page')
@@ -114,9 +114,9 @@ def rental_dates(request, cat_id):
     if request.POST:
         if rental_form.is_valid():
             rental_form.save()
-            return redirect(reverse("cats:congrats_mail", args=[cat_id]))
+            return redirect(reverse('cats:congrats_mail', args=[cat_id]))
 
-    context = {"cat": cat, "rental_form": rental_form}
+    context = {'cat': cat, 'rental_form': rental_form}
     return render(request, 'cats/rental_dates.html', context)
 
 
@@ -136,7 +136,7 @@ def rentals_history(request):
         'page_obj': page_obj
     }
 
-    return render(request, "cats/rentals_history.html", context)
+    return render(request, 'cats/rentals_history.html', context)
 
 
 @login_required

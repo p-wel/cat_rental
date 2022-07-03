@@ -7,9 +7,7 @@
     "modified": "2022-01-17T19:10:37.730Z",
     "name": "Kitten",
     "breed": 1,
-    "description": "Kitten description",
-    "creation_date": "2022-01-12T13:18:54.491Z",
-    "modification_date": "2022-01-17T19:10:37.730Z"
+    "description": "Kitten description"
   }
 },
 {
@@ -20,9 +18,7 @@
     "modified": "2022-01-30T13:18:31.993Z",
     "name": "Kot admina",
     "breed": 8,
-    "description": "",
-    "creation_date": "2022-01-12T13:19:16.120Z",
-    "modification_date": "2022-01-30T13:18:31.993Z"
+    "description": ""
   }
 },
 {
@@ -33,9 +29,7 @@
     "modified": "2022-01-30T12:06:49.686Z",
     "name": "Kitten2",
     "breed": 4,
-    "description": "Desc of Kitten2",
-    "creation_date": "2022-01-13T09:00:31.145Z",
-    "modification_date": "2022-01-30T12:06:49.686Z"
+    "description": "Desc of Kitten2"
   }
 },
 {
@@ -46,9 +40,7 @@
     "modified": "2022-01-29T16:49:58.519Z",
     "name": "catcat",
     "breed": 6,
-    "description": "",
-    "creation_date": "2022-01-13T09:00:45.628Z",
-    "modification_date": "2022-01-29T16:49:58.519Z"
+    "description": ""
   }
 },
 {
@@ -59,9 +51,7 @@
     "modified": "2022-01-30T13:13:07.791Z",
     "name": "Big cat",
     "breed": 9,
-    "description": "",
-    "creation_date": "2022-01-13T09:00:54.129Z",
-    "modification_date": "2022-01-30T13:13:07.791Z"
+    "description": ""
   }
 },
 {
@@ -72,9 +62,7 @@
     "modified": "2022-01-30T12:15:10.235Z",
     "name": "Quick Cat",
     "breed": 11,
-    "description": "",
-    "creation_date": "2022-01-13T09:01:04.841Z",
-    "modification_date": "2022-01-30T12:15:10.235Z"
+    "description": ""
   }
 },
 {
@@ -85,9 +73,7 @@
     "modified": "2022-01-30T13:18:32.613Z",
     "name": "MericanCat",
     "breed": 1,
-    "description": "",
-    "creation_date": "2022-01-13T09:01:19.510Z",
-    "modification_date": "2022-01-30T13:18:32.613Z"
+    "description": ""
   }
 },
 {
@@ -98,9 +84,7 @@
     "modified": "2022-01-30T11:56:24.384Z",
     "name": "Egyptian",
     "breed": 2,
-    "description": "",
-    "creation_date": "2022-01-13T09:01:46.612Z",
-    "modification_date": "2022-01-30T11:56:24.384Z"
+    "description": ""
   }
 },
 {
@@ -111,9 +95,7 @@
     "modified": "2022-01-30T13:41:05.476Z",
     "name": "Cat10",
     "breed": 10,
-    "description": "",
-    "creation_date": "2022-01-30T13:41:05.476Z",
-    "modification_date": "2022-01-30T13:41:05.476Z"
+    "description": ""
   }
 },
 {
@@ -124,9 +106,7 @@
     "modified": "2022-01-30T13:41:10.814Z",
     "name": "Cat11",
     "breed": 9,
-    "description": "",
-    "creation_date": "2022-01-30T13:41:10.814Z",
-    "modification_date": "2022-01-30T13:41:10.814Z"
+    "description": ""
   }
 },
 {
@@ -137,9 +117,7 @@
     "modified": "2022-01-30T13:43:32.856Z",
     "name": "Cat12",
     "breed": 11,
-    "description": "",
-    "creation_date": "2022-01-30T13:41:15.256Z",
-    "modification_date": "2022-01-30T13:43:32.856Z"
+    "description": ""
   }
 },
 {
@@ -150,9 +128,7 @@
     "modified": "2022-01-30T13:41:21.586Z",
     "name": "Cat13",
     "breed": 12,
-    "description": "",
-    "creation_date": "2022-01-30T13:41:21.586Z",
-    "modification_date": "2022-01-30T13:41:21.586Z"
+    "description": ""
   }
 },
 {
@@ -163,9 +139,7 @@
     "modified": "2022-01-30T13:41:25.541Z",
     "name": "Cat14",
     "breed": 8,
-    "description": "",
-    "creation_date": "2022-01-30T13:41:25.541Z",
-    "modification_date": "2022-01-30T13:41:25.541Z"
+    "description": ""
   }
 },
 {
@@ -176,9 +150,7 @@
     "modified": "2022-01-30T13:43:47.573Z",
     "name": "Cat15",
     "breed": 7,
-    "description": "",
-    "creation_date": "2022-01-30T13:41:28.801Z",
-    "modification_date": "2022-01-30T13:43:47.573Z"
+    "description": ""
   }
 },
 {
@@ -189,9 +161,7 @@
     "modified": "2022-01-30T13:41:35.509Z",
     "name": "Cat16",
     "breed": 6,
-    "description": "",
-    "creation_date": "2022-01-30T13:41:35.509Z",
-    "modification_date": "2022-01-30T13:41:35.509Z"
+    "description": ""
   }
 },
 {
@@ -202,9 +172,7 @@
     "modified": "2022-01-30T13:41:39.277Z",
     "name": "Cat17",
     "breed": 5,
-    "description": "",
-    "creation_date": "2022-01-30T13:41:39.277Z",
-    "modification_date": "2022-01-30T13:41:39.277Z"
+    "description": ""
   }
 },
 {
@@ -215,9 +183,7 @@
     "modified": "2022-01-30T13:41:44.988Z",
     "name": "Cat18",
     "breed": 4,
-    "description": "",
-    "creation_date": "2022-01-30T13:41:44.988Z",
-    "modification_date": "2022-01-30T13:41:44.988Z"
+    "description": ""
   }
 },
 {
@@ -228,9 +194,7 @@
     "modified": "2022-01-30T13:41:49.341Z",
     "name": "Cat19",
     "breed": 3,
-    "description": "",
-    "creation_date": "2022-01-30T13:41:49.341Z",
-    "modification_date": "2022-01-30T13:41:49.341Z"
+    "description": ""
   }
 },
 {
@@ -241,9 +205,7 @@
     "modified": "2022-01-30T13:41:53.272Z",
     "name": "Cat20",
     "breed": 2,
-    "description": "",
-    "creation_date": "2022-01-30T13:41:53.272Z",
-    "modification_date": "2022-01-30T13:41:53.272Z"
+    "description": ""
   }
 },
 {
@@ -254,9 +216,7 @@
     "modified": "2022-01-30T13:41:56.224Z",
     "name": "Cat21",
     "breed": 1,
-    "description": "",
-    "creation_date": "2022-01-30T13:41:56.224Z",
-    "modification_date": "2022-01-30T13:41:56.224Z"
+    "description": ""
   }
 }
 ]

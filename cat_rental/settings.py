@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+ek#3^#%*b@dp$v3j_aki)ja)pj#l)^^mip5@$t&b0id5l^%4l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -82,9 +82,12 @@ WSGI_APPLICATION = 'cat_rental.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'cat_rental_db',
+        # 'USER': 'psql_cats_user',
+        # 'PASSWORD': 'psql_cats_user',
         'NAME': 'cat_rental_db',
-        'USER': 'psql_cats_user',
-        'PASSWORD': 'psql_cats_user',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': 5432,
     }
@@ -126,7 +129,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    BASE_DIR / 'static',
 ]
 
 # Default primary key field type
@@ -134,12 +137,12 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = ''  # TODO put mail here
-EMAIL_HOST_PASSWORD = ''  # TODO put mail password here
+EMAIL_HOST_USER = 'djangomailingtest@gmail.com'
+EMAIL_HOST_PASSWORD = 'Djang00123'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
