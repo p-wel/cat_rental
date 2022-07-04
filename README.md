@@ -1,5 +1,5 @@
 # Cat Rental
-Django website for practise
+Django website for practice
 
 App: "Cat rental" (yes, to rent a CAT)
 
@@ -24,13 +24,9 @@ py manage.py migrate
 ```
 (you can also import data from fixtures first)
 
-## Set mailing details
-- in settings.py - set yours:
-    - EMAIL_HOST_USER
-    - EMAIL_HOST_PASSWORD  
-
-(you can find it by TODO tag)
-
+## Setup .env file
+Please note there's temporary SECRET_KEY in settings.py
+You may delete it
 
 ## Run server on your localhost
 ```
