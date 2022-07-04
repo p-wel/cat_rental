@@ -14,7 +14,7 @@ def test_filter_by_dates(self):
     """
     today = datetime.date.today()
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-    if Cat.objects.all() is not None:
+    if Cat.objects.all().exists():
         available_cats = Cat.objects.filter_available_between_dates(today, tomorrow)
         valid_rentals = Rental.objects.filter(
             rental_date__gte=today,

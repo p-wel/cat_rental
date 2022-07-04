@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -19,12 +20,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+ek#3^#%*b@dp$v3j_aki)ja)pj#l)^^mip5@$t&b0id5l^%4l'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-+ek#3^#%*b@dp$v3j_aki)ja)pj#l)^^mip5@$t&b0id5l^%4l')
+# TODO: Given default SECRET_KEY is temporary, make sure to not use it in production
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = str(os.environ.get('DEBUG')) == '1'
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS += [os.environ.get('ALLOWED_HOST')]
 
 # Application definition
 
@@ -82,13 +86,10 @@ WSGI_APPLICATION = 'cat_rental.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'cat_rental_db',
-        # 'USER': 'psql_cats_user',
-        # 'PASSWORD': 'psql_cats_user',
-        'NAME': 'cat_rental_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
         'PORT': 5432,
     }
 }
@@ -142,7 +143,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'djangomailingtest@gmail.com'
-EMAIL_HOST_PASSWORD = 'Djang00123'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True

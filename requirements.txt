@@ -1,4 +1,5 @@
 django==3.2.7
-django-crispy-forms
+django-crispy-forms~=1.14.0
 django-widget-tweaks
 psycopg2
+django-dotenv
