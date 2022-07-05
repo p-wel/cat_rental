@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'widget_tweaks',
 
-    'cats.apps.CatsConfig',
-    'main.apps.MainConfig',
-    'register.apps.RegisterConfig',
+    'cats',
+    'main',
+    'register',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
