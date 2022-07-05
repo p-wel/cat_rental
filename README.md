@@ -5,7 +5,8 @@ App: "Cat rental" (yes, to rent a CAT)
 
 
 # Screenshoots:
-![Cats_list](https://user-images.githubusercontent.com/75095360/149442056-1ec88923-ad8c-4ab9-98c2-7bea80115b3a.png)
+![Cats_list](https://user-images.githubusercontent.com/75095360/175832124-568e3287-332c-4e91-9fd1-d3869c5a235f.png)
+
 
 # Setup
 
