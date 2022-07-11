@@ -50,7 +50,7 @@ class Breed(models.Model):
     species = models.ForeignKey('cats.Species', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
 
 class Species(models.Model):
@@ -62,7 +62,7 @@ class Species(models.Model):
         verbose_name_plural = 'Species'
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
 
 class Rental(models.Model):
