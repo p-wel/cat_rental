@@ -17,9 +17,8 @@ def test_filter_by_dates(self):
     if Cat.objects.all().exists():
         available_cats = Cat.objects.filter_available_between_dates(today, tomorrow)
         valid_rentals = Rental.objects.filter(
-            rental_date__gte=today,
-            return_date__lte=tomorrow
+            rental_date__gte=today, return_date__lte=tomorrow
         )
         assert available_cats not in valid_rentals
     else:
-        assert AssertionError('No objects to check in given dates')
+        assert AssertionError("No objects to check in given dates")
