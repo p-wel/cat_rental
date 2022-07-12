@@ -25,10 +25,9 @@ class CatQuerySet(models.QuerySet):
         Returns a list of cats available between given dates.
         """
 
-        rentals_between_dates = Rental.objects.filter(
-            rental_date__gte=rental_date, return_date__lte=return_date
+        return self.exclude(
+            rentals__rental_date__gte=rental_date, rentals__return_date__lte=return_date
         )
-        return self.exclude(id__in=rentals_between_dates.values_list("cat"))
 
 
 class Cat(TimeStamped):
@@ -36,7 +35,7 @@ class Cat(TimeStamped):
 
     name = models.CharField(max_length=50)
     breed = models.ForeignKey("cats.Breed", on_delete=models.CASCADE)
-    description = models.TextField(default=None, blank=True)
+    description = models.TextField(blank=True)
 
     objects = CatQuerySet.as_manager()
 
@@ -48,7 +47,7 @@ class Breed(models.Model):
     """Basic class for Breed objects"""
 
     name = models.CharField(max_length=50)
-    description = models.TextField(default=None, blank=True)
+    description = models.TextField(blank=True)
     species = models.ForeignKey("cats.Species", on_delete=models.CASCADE)
 
     def __str__(self):
@@ -59,7 +58,7 @@ class Species(models.Model):
     """Basic class for Species objects"""
 
     name = models.CharField(max_length=50)
-    description = models.TextField(default=None, blank=True)
+    description = models.TextField(blank=True)
 
     class Meta:
         verbose_name_plural = "Species"
