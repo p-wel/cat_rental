@@ -91,7 +91,7 @@ class Rental(models.Model):
     return_date = models.DateField(null=True, blank=True)
     status = models.PositiveSmallIntegerField(
         choices=STATUS,
-        default=NOT_ACTIVE,
+        default=ACTIVE,
     )
 
     def clean(self):
