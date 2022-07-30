@@ -1,15 +1,19 @@
 import datetime
 
 import factory
+from django.contrib.auth.models import User
+from factory.fuzzy import FuzzyInteger
 from faker import Factory
+
+from cats.models import Rental, Species, Breed, Cat
 
 faker = Factory.create()
 
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = "auth.User"
-        django_get_or_create = ("email",)
+        model = User
+        django_get_or_create = ("username",)
 
     username = factory.Sequence(lambda n: f"user_{n}")
     email = factory.Sequence(lambda n: f"user_{n}@p-wel_cat_rental.pl")
@@ -18,7 +22,7 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 class SpeciesFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = "cats.Species"
+        model = Species
 
     name = factory.Sequence(lambda n: f"Species_{n}")
     description = factory.Sequence(lambda n: f"Species_description_{n}")
@@ -26,7 +30,7 @@ class SpeciesFactory(factory.django.DjangoModelFactory):
 
 class BreedFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = "cats.Breed"
+        model = Breed
 
     name = factory.Sequence(lambda n: f"Breed_{n}")
     description = factory.Sequence(lambda n: f"Breed_description_{n}")
@@ -35,7 +39,7 @@ class BreedFactory(factory.django.DjangoModelFactory):
 
 class CatFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = "cats.Cat"
+        model = Cat
 
     name = factory.Sequence(lambda n: f"Cat_{n}")
     breed = factory.SubFactory(BreedFactory)
@@ -44,10 +48,10 @@ class CatFactory(factory.django.DjangoModelFactory):
 
 class RentalFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = "cats.Rental"
+        model = Rental
 
     cat = factory.SubFactory(CatFactory)
     user = factory.SubFactory(UserFactory)
-    rental_date = factory.Sequence(lambda n: datetime.date.today() + datetime.timedelta(days=n))
-    return_date = factory.Sequence(lambda n: datetime.date.today() + datetime.timedelta(days=2 * n))
-    status = 2
+    rental_date = factory.LazyAttribute(lambda _: faker.future_date())
+    return_date = factory.LazyAttribute(lambda _self: _self.rental_date + datetime.timedelta(days=30))
+    status = FuzzyInteger(0, 4, 1)
