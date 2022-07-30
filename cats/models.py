@@ -7,18 +7,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 
-class TimeStamped(models.Model):
-    """TimeStamp using when creating new object"""
-
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-
-
 class CatQuerySet(models.QuerySet):
-    def filter_available_between_dates(self, rental_date, return_date):
+    def get_available_cats(self, rental_date, return_date):
         """
         Method in Cat QuerySet to filter out rented cats.
 
@@ -30,7 +20,7 @@ class CatQuerySet(models.QuerySet):
         )
 
 
-class Cat(TimeStamped):
+class Cat(models.Model):
     """Basic class for Cat objects"""
 
     name = models.CharField(max_length=50)
@@ -82,7 +72,6 @@ class Rental(models.Model):
         (FINISHED, "Finished"),
         (CANCELLED, "Cancelled"),
     )
-
     cat = models.ForeignKey("Cat", on_delete=models.CASCADE, related_name="rentals")
     user = models.ForeignKey(
         "auth.User", on_delete=models.CASCADE, related_name="rentals"
@@ -101,14 +90,8 @@ class Rental(models.Model):
         if self.rental_date > self.return_date:
             raise ValidationError('"Return date" must be further than "return from"')
 
-        # Check if cat isn't already rented in given dates
-        if (
-            not Cat.objects.filter_available_between_dates(
-                self.rental_date, self.return_date
-            )
-            .filter(pk=self.cat.pk)
-            .exists()
-        ):
+        # If cat won't be found in available cats queryset - raise error
+        if not Cat.objects.get_available_cats(self.rental_date, self.return_date).filter(pk=self.cat.pk):
             raise ValidationError("Cat is not available in given timeframes")
 
     def __str__(self):

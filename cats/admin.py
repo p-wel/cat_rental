@@ -2,33 +2,10 @@
 Admin for CRUD on objects creating in app
 """
 from django.contrib import admin
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
 from .models import Cat, Species, Breed, Rental
-
-
-@admin.action(description="Set status: Not activate (draft)")
-def update_status_to_no_status(self, request, queryset):
-    queryset.update(status=0)
-
-
-@admin.action(description="Set status: Pending (@)")
-def update_status_to_pending(self, request, queryset):
-    queryset.update(status=1)
-
-
-@admin.action(description="Set status: Active")
-def update_status_to_actual(self, request, queryset):
-    queryset.update(status=2)
-
-
-@admin.action(description="Set status: Finished")
-def update_status_to_finished(self, request, queryset):
-    queryset.update(status=3)
-
-
-@admin.action(description="Set status: Cancelled")
-def update_status_to_cancelled(self, request, queryset):
-    queryset.update(status=4)
 
 
 @admin.register(Cat)
@@ -60,13 +37,26 @@ class BreedAdmin(admin.ModelAdmin):
 class RentalAdmin(admin.ModelAdmin):
     """Register admin for Rentals"""
 
+    @admin.action(description="Update status")
+    def update_status(self, request, queryset):
+        if 'submit' in request.POST:
+            queryset.update(status=request.POST['options'][1])
+
+            self.message_user(
+                request,
+                f"Changed status for {queryset.count()} rentals"
+            )
+            return HttpResponseRedirect(request.get_full_path())
+
+        return render(
+            request,
+            'admin/action_update_status.html',
+            context={'rentals': queryset, 'status_options': Rental.STATUS}
+        )
+
     list_display = ["id", "user", "cat", "rental_date", "return_date", "status"]
     list_filter = ["status", "rental_date", "return_date"]
     search_fields = ["id", "cat__name", "user__username"]
     actions = [
-        update_status_to_no_status,
-        update_status_to_pending,
-        update_status_to_actual,
-        update_status_to_finished,
-        update_status_to_cancelled,
+        update_status,
     ]

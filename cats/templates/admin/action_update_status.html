@@ -1,0 +1,26 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="status_select">Select new status:</label>
+        <select id="status_select" name="options">
+            {% for status in status_options %}
+                <option value={{ status }}>{{ status }}</option>
+            {% endfor %}
+        </select>
+
+        <p>
+            For rentals:
+        </p>
+        {% for rental in rentals %}
+            <li>
+                {{ rental }}
+            </li>
+            <input type="hidden" name="_selected_action" value="{{ rental.pk }}"/>
+        {% endfor %}
+        <input type="hidden" name="action" value="update_status"/>
+        <input type="submit" name="submit" value="Update status"/>
+    </form>
+{% endblock %}
+
