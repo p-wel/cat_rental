@@ -48,7 +48,7 @@ def explore_list(request):
     if search_form.is_valid():
         date_from = search_form.cleaned_data["date_from"]
         date_to = search_form.cleaned_data["date_to"]
-        cats = Cat.objects.filter_available_between_dates(date_from, date_to)
+        cats = Cat.objects.get_available_cats(date_from, date_to)
 
         paginator = Paginator(cats, 10)
         page_number = request.GET.get("page")
@@ -76,7 +76,7 @@ def cats_list(request, species_id):
         date_from = search_form.cleaned_data["date_from"]
         date_to = search_form.cleaned_data["date_to"]
         species_cats = Cat.objects.filter(breed__species=species_id)
-        cats = species_cats.filter_available_between_dates(date_from, date_to)
+        cats = species_cats.get_available_cats(date_from, date_to)
 
         paginator = Paginator(cats, 10)
         page_number = request.GET.get("page")

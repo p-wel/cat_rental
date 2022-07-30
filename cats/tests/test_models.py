@@ -8,6 +8,16 @@ from cats.tests.factories import RentalFactory
 class TestModels(TestCase):
 
     def setUp(self):
+        """
+        RentalFactory creates new objects:
+        - Species
+        - Breed
+        - Cat
+        - User
+        and uses them to create new Rental object
+
+        build() method used to not save those object in database
+        """
         RentalFactory.build_batch(50)
 
     def test_species_exists(self):
@@ -33,7 +43,7 @@ class TestModels(TestCase):
         today = datetime.date.today()
         next_month_day = datetime.date.today() + datetime.timedelta(days=30)
 
-        available_cats = Cat.objects.filter_available_between_dates(today, next_month_day)
+        available_cats = Cat.objects.get_available_cats(today, next_month_day)
         valid_rentals = Rental.objects.filter(
             rental_date__gte=today, return_date__lte=next_month_day
         )

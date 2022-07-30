@@ -45,11 +45,13 @@ class SearchForm(forms.Form):
             attrs={"class": "datepicker", "type": "date", "placeholder": "DD-MM-YYYY"}
         ),
         initial=datetime.date.today(),
+        required=True,
     )
     date_to = forms.DateField(
         widget=forms.DateInput(
             attrs={"class": "datepicker", "type": "date", "placeholder": "DD-MM-YYYY"}
-        )
+        ),
+        required=True,
     )
 
     def __init__(self, *args, **kwargs):
@@ -62,8 +64,8 @@ class SearchForm(forms.Form):
     def clean(self):
         """Cleans the form"""
         cleaned_data = super(SearchForm, self).clean()
-        date_from = cleaned_data.get("date_from")
-        date_to = cleaned_data.get("date_to")
+        date_from = cleaned_data["date_from"]
+        date_to = cleaned_data["date_to"]
 
         """Raise error if "date_from" is from the past"""
         if date_from < datetime.date.today():
